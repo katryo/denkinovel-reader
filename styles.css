@@ -4,7 +4,7 @@
 
 .upper-bg-enter-active {
   opacity: 1;
-  transition: opacity 2000ms;
+  transition: opacity 2000ms ease-in-out;
 }
 
 .upper-bg-exit {
@@ -13,5 +13,35 @@
 
 .upper-bg-exit-active {
   opacity: 0;
-  transition: opacity 2000ms;
+  transition: opacity 2000ms ease-in-out;
+}
+
+.page-appear {
+  background: 'pink';
+}
+
+.page-enter {
+  opacity: 0;
+  background: 'red';
+}
+
+.page-enter-active {
+  opacity: 1;
+  transition: opacity 2000ms ease-in-out;
+  background: 'black';
+}
+
+.page-exit {
+  opacity: 1;
+  background: 'blue';
+}
+
+.page-exit-active {
+  opacity: 0;
+  transition: opacity 2000ms ease-in-out;
+  background: 'yellow';
+}
+
+.page-done {
+  background: 'green';
 }
