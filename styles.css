@@ -70,3 +70,41 @@
 .filter-exit-done {
   opacity: 0;
 }
+
+.scroll-indicator span {
+  animation: scroll-indicator-animation 2.2s infinite;
+  border-bottom: 1px solid #fff;
+  border-left: 1px solid #fff;
+  box-sizing: border-box;
+  height: 30px;
+  width: 30px;
+  margin-left: -15px;
+  transform: rotate(-45deg);
+  opacity: 0;
+  position: absolute;
+}
+.scroll-indicator span:nth-of-type(1) {
+  animation-delay: 0s;
+}
+.scroll-indicator span:nth-of-type(2) {
+  margin-top: 10px;
+  animation-delay: 0.1s;
+}
+.scroll-indicator span:nth-of-type(3) {
+  margin-top: 20px;
+  animation-delay: 0.2s;
+}
+@keyframes scroll-indicator-animation {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}

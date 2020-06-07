@@ -91,7 +91,7 @@ const SectionList = (props: { page: Page; textColor: string; imageMapping: { [ke
 
   const sectionList = page.sections.map((section) => {
     return (
-      <div id={idToSectionId(section.id)} key={section.id} style={{ color: textColor, minHeight: '20rem' }}>
+      <div id={idToSectionId(section.id)} key={section.id} style={{ color: textColor }}>
         {section.image !== '' && (
           <img src={getImageSrc(section.image)} style={{ width: '100%', marginBottom: '3rem' }} />
         )}
@@ -123,8 +123,15 @@ const PageList = (props: {
         key={page.id}
         id={idToPageId(page.id)}
       >
-        <div className="page-before">
+        <div className="page-before" style={{ minHeight: '20rem' }}>
           <SectionList page={page} textColor={textColor} imageMapping={imageMapping} />
+          <div className="scroll-indicator" style={{ textAlign: 'center', marginTop: '2rem' }}>
+            <a>
+              <span></span>
+              <span></span>
+              <span></span>
+            </a>
+          </div>
         </div>
       </CSSTransition>
     );
@@ -344,16 +351,17 @@ const StoryContainer = (props: { episode: Episode }) => {
           position: 'relative',
         }}
       >
-        <h1
-          style={{
-            textAlign: 'center',
-            color: getColor(episode.defaultTextColor),
-            marginTop: '5rem',
-            marginBottom: '5rem',
-          }}
-        >
-          {episode.episodeTitle}
-        </h1>
+        <header style={{ textAlign: 'center' }}>
+          <h1
+            style={{
+              color: getColor(episode.defaultTextColor),
+              marginTop: '5rem',
+              marginBottom: '5rem',
+            }}
+          >
+            {episode.episodeTitle}
+          </h1>
+        </header>
         <div
           style={{
             fontSize: 17.5,
