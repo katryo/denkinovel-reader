@@ -126,11 +126,9 @@ const PageList = (props: {
         <div className="page-before" style={{ minHeight: '20rem' }}>
           <SectionList page={page} textColor={textColor} imageMapping={imageMapping} />
           <div className="scroll-indicator" style={{ textAlign: 'center', marginTop: '2rem' }}>
-            <a>
-              <span></span>
-              <span></span>
-              <span></span>
-            </a>
+            <span></span>
+            <span></span>
+            <span></span>
           </div>
         </div>
       </CSSTransition>
@@ -347,8 +345,9 @@ const StoryContainer = (props: { episode: Episode }) => {
       <div
         style={{
           margin: '0 auto',
-          maxWidth: 700,
+          padding: 20,
           position: 'relative',
+          maxWidth: 700,
         }}
       >
         <header style={{ textAlign: 'center' }}>
@@ -377,7 +376,7 @@ const StoryContainer = (props: { episode: Episode }) => {
             textColor={textColor}
             imageMapping={episode.imageMapping}
           />
-          <div style={{ width: '100%', padding: '3rem', marginTop: '30rem' }}>Next episode</div>
+          <div style={{ width: '100%', marginTop: '30rem' }}>Next episode</div>
         </div>
       </div>
 
