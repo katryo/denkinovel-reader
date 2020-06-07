@@ -1,6 +1,6 @@
 import { CSSTransition } from 'react-transition-group';
 import { Howl, Howler } from 'howler';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import fs from 'fs';
 import path from 'path';
 
@@ -68,8 +68,6 @@ const idToSectionId = (id: number) => {
 const SectionsList = (props) => {
   const { sections, currentPage, isPageShowing } = props;
   const sectionsList = sections.map((section) => {
-    // const innerDivStyle = currentPage === section.page ? {} : { opacity: 0 };
-    // console.log({ sectionId: section.id, currentPage });
     return (
       <CSSTransition
         in={currentPage === section.page && isPageShowing}
@@ -78,9 +76,6 @@ const SectionsList = (props) => {
         classNames="page"
         key={section.id}
         id={idToSectionId(section.id)}
-        // onEnter={async () => {
-        //   await sleep(2000);
-        // }}
       >
         <div className="page-before">
           <div>
@@ -129,29 +124,31 @@ const StoryContainer = (props: { episode: Episode }) => {
     effectBeginsHeight = window.innerHeight / 2;
   };
 
-  useEffect(() => {
-    console.log('useEffect');
-    getSectionsY();
-
-    const onScroll = (e) => {
+  const handleScroll = useCallback(
+    (e) => {
       const sectionId = getCurrentSectionId();
       const sectionIndex = sectionIdIndex[sectionId];
       const currentSection = episode.sections[sectionIndex];
-      console.log({ currentSectionPage: currentSection.page, currentPage });
       if (currentSection.page !== currentPage) {
         setPage(currentSection.page);
         // setPage((state) => currentSection.page);
         // console.log('setPage called');
         // console.log({ pageChangedTo: currentSection.page });
       }
-    };
-    document.addEventListener('scroll', onScroll);
+    },
+    [currentPage],
+  );
+
+  useEffect(() => {
+    getSectionsY();
+
+    document.addEventListener('scroll', handleScroll);
     document.addEventListener('resize', getSectionsY);
     return () => {
-      document.removeEventListener('scroll', onScroll);
+      document.removeEventListener('scroll', handleScroll);
       document.removeEventListener('resize', getSectionsY);
     };
-  }, [currentPage]);
+  });
 
   const getCurrentSectionId = () => {
     if (episode.sections.length === 0) {
