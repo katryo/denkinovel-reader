@@ -306,7 +306,16 @@ const StoryContainer = (props: { episode: Episode }) => {
           position: 'relative',
         }}
       >
-        <h1 style={{ textAlign: 'center', color: getColor(episode.defaultTextColor) }}>{episode.episodeTitle}</h1>
+        <h1
+          style={{
+            textAlign: 'center',
+            color: getColor(episode.defaultTextColor),
+            marginTop: '5rem',
+            marginBottom: '5rem',
+          }}
+        >
+          {episode.episodeTitle}
+        </h1>
         <div
           style={{
             fontSize: 17.5,
