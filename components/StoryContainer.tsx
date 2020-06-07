@@ -7,6 +7,7 @@ const PINK = '#fecbc8';
 const BLUE = '#dceff5';
 const GREEN = '#dcfec8';
 const TRANSITION_MS = 2000;
+const PAGE_TRAINSITION_MS = 500;
 const DEFAULT_CURRENT_MUSIC_ID = -1;
 
 const sleep = async (ms: number) => {
@@ -123,18 +124,21 @@ const StoryContainer = (props: { episode: Episode }) => {
   };
 
   const handleScroll = useCallback(
-    (e) => {
+    async (e) => {
       const sectionId = getCurrentSectionId();
       const sectionIndex = sectionIdIndex[sectionId];
       const currentSection = episode.sections[sectionIndex];
       if (currentSection.page !== currentPage) {
+        setIsPageShowing(false);
         setPage(currentSection.page);
+        await sleep(PAGE_TRAINSITION_MS);
+        setIsPageShowing(true);
         // setPage((state) => currentSection.page);
         // console.log('setPage called');
         // console.log({ pageChangedTo: currentSection.page });
       }
     },
-    [currentPage],
+    [currentPage, isPageShowing],
   );
 
   useEffect(() => {
@@ -222,13 +226,19 @@ const StoryContainer = (props: { episode: Episode }) => {
           margin: '0 auto',
           maxWidth: 700,
           position: 'relative',
-          fontSize: 17.5,
-          lineHeight: 1.8,
-          fontFamily:
-            "'游明朝',YuMincho,'ヒラギノ明朝 Pr6N','Hiragino Mincho Pr6N','ヒラギノ明朝 ProN','Hiragino Mincho ProN','ヒラギノ明朝 StdN','Hiragino Mincho StdN',HiraMinProN-W3,'HGS明朝B','HG明朝B',dcsymbols,'Helvetica Neue',Helvetica,Arial,'ヒラギノ角ゴ Pr6N','Hiragino Kaku Gothic Pr6N','ヒラギノ角ゴ ProN','Hiragino Kaku Gothic ProN','ヒラギノ角ゴ StdN','Hiragino Kaku Gothic StdN','Segoe UI',Verdana,'メイリオ',Meiryo,sans-serif",
         }}
       >
-        <SectionsList sections={episode.sections} currentPage={currentPage} isPageShowing={isPageShowing} />
+        <h1 style={{ textAlign: 'center' }}>{episode.episodeTitle}</h1>
+        <div
+          style={{
+            fontSize: 17.5,
+            lineHeight: 1.8,
+            fontFamily:
+              "'游明朝',YuMincho,'ヒラギノ明朝 Pr6N','Hiragino Mincho Pr6N','ヒラギノ明朝 ProN','Hiragino Mincho ProN','ヒラギノ明朝 StdN','Hiragino Mincho StdN',HiraMinProN-W3,'HGS明朝B','HG明朝B',dcsymbols,'Helvetica Neue',Helvetica,Arial,'ヒラギノ角ゴ Pr6N','Hiragino Kaku Gothic Pr6N','ヒラギノ角ゴ ProN','Hiragino Kaku Gothic ProN','ヒラギノ角ゴ StdN','Hiragino Kaku Gothic StdN','Segoe UI',Verdana,'メイリオ',Meiryo,sans-serif",
+          }}
+        >
+          <SectionsList sections={episode.sections} currentPage={currentPage} isPageShowing={isPageShowing} />
+        </div>
       </div>
 
       <div style={{ position: 'relative' }}>
