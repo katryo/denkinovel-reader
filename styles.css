@@ -7,14 +7,6 @@
   transition: opacity 800ms ease-in-out;
 }
 
-/* .upper-bg-exit {
-  opacity: 1;
-}
-
-.upper-bg-exit-active {
-  opacity: 0;
-} */
-
 .page-before {
   opacity: 0;
 }
@@ -46,5 +38,35 @@
 }
 
 .page-exit-done {
+  opacity: 0;
+}
+
+.filter-appear {
+  opacity: 0.6;
+}
+
+.filter-enter {
+  opacity: 0;
+}
+
+.filter-enter-active {
+  opacity: 0.6;
+  transition: opacity 600ms ease-in-out;
+}
+
+.filter-enter-done {
+  opacity: 0.6;
+}
+
+.filter-exit {
+  opacity: 0.6;
+}
+
+.filter-exit-active {
+  opacity: 0;
+  transition: opacity 600ms ease-in-out;
+}
+
+.filter-exit-done {
   opacity: 0;
 }

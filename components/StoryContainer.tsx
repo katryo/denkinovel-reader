@@ -119,6 +119,9 @@ const StoryContainer = (props: { episode: Episode }) => {
     .flat();
 
   const getColor = (name: string) => {
+    if (name === '') {
+      throw new Error(`name is empty.`);
+    }
     const color = episode.colorMapping[name];
     if (!color) {
       throw new Error(`${name} not found in colorMapping.`);
@@ -127,6 +130,9 @@ const StoryContainer = (props: { episode: Episode }) => {
   };
 
   const getVisualSrc = (name: string) => {
+    if (name === '') {
+      throw new Error(`name is empty.`);
+    }
     const color = episode.colorMapping[name];
     if (color) {
       return color;
@@ -140,7 +146,7 @@ const StoryContainer = (props: { episode: Episode }) => {
 
   const defaultBg = getVisualSrc(episode.defaultBg);
 
-  const DEFAULT_BG_STYLE = {
+  const FULL_SCREEN_STYLE = {
     width: '100%',
     height: '100%',
     left: 0,
@@ -150,7 +156,10 @@ const StoryContainer = (props: { episode: Episode }) => {
   };
 
   const getBgStyle = (bgName: string) => {
-    const style = DEFAULT_BG_STYLE;
+    const style = { ...FULL_SCREEN_STYLE }; // Clone
+    if (bgName === '') {
+      bgName = episode.defaultBg;
+    }
     let src = episode.colorMapping[bgName];
     if (src) {
       style['backgroundColor'] = src;
@@ -168,6 +177,8 @@ const StoryContainer = (props: { episode: Episode }) => {
   const [lowerBgStyle, setLowerBgSrc] = useState(getBgStyle(episode.defaultBg));
   const [upperBgStyle, setUpperBgSrc] = useState(getBgStyle(episode.defaultBg));
   const [textColor, setTextColor] = useState(getColor(episode.defaultTextColor));
+  const [filterColor, setFilter] = useState(getColor(episode.defaultFilter));
+  const [filterIn, setFilterIn] = useState(true);
   const [upperBgIn, setUpperBgIn] = useState(false);
   const [currentPage, setPage] = useState(0);
   const [isPageShowing, setIsPageShowing] = useState(true);
@@ -190,6 +201,13 @@ const StoryContainer = (props: { episode: Episode }) => {
 
     effectBeginsHeight = window.innerHeight / 2;
   };
+
+  const changeFilter = useCallback(
+    async (filterName: string) => {
+      const color = getColor(filterName);
+    },
+    [filterColor],
+  );
 
   const changeBg = useCallback(
     async (bgName: string) => {
@@ -277,6 +295,9 @@ const StoryContainer = (props: { episode: Episode }) => {
       <div style={lowerBgStyle}></div>
       <CSSTransition in={upperBgIn} timeout={TRANSITION_MS} classNames="upper-bg">
         <div style={upperBgStyle}></div>
+      </CSSTransition>
+      <CSSTransition in={filterIn} appear={true} timeout={TRANSITION_MS} classNames="filter">
+        <div style={{ ...FULL_SCREEN_STYLE, backgroundColor: filterColor }}></div>
       </CSSTransition>
       <div
         style={{
