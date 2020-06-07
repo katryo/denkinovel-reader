@@ -138,12 +138,15 @@ const StoryContainer = (props: { episode: Episode }) => {
     throw new Error(`${name} not found in colorMapping nor imageMapping.`);
   };
 
-  const [lowerBGColor, setLowerBGSrc] = useState(getVisualSrc(episode.defaultBg));
-  const [upperBGColor, setUpperBGSrc] = useState(getVisualSrc(episode.defaultBg));
+  const defaultBg = getVisualSrc(episode.defaultBg);
+
+  const [lowerBGColor, setLowerBgSrc] = useState(defaultBg);
+  const [upperBGColor, setUpperBgSrc] = useState(defaultBg);
   const [textColor, setTextColor] = useState(getColor(episode.defaultTextColor));
-  const [upperBGIn, setUpperBGIn] = useState(false);
+  const [upperBGIn, setUpperBgIn] = useState(false);
   const [currentPage, setPage] = useState(0);
   const [isPageShowing, setIsPageShowing] = useState(true);
+  let currentBg = defaultBg;
   const ID_STORY_CONTAINER = 'js-story-container';
   const sectionIdDist: SectionIdDist = {};
   const sectionIdIndex: { [id: number]: number } = {};
@@ -226,7 +229,7 @@ const StoryContainer = (props: { episode: Episode }) => {
     const id = sound.play();
   };
 
-  const changeBG = async (bgName: string) => {
+  const changeBg = async (bgName: string) => {
     let src = episode.colorMapping[bgName];
     if (!src) {
       src = episode.imageMapping[bgName];
@@ -234,11 +237,11 @@ const StoryContainer = (props: { episode: Episode }) => {
     if (!src) {
       throw new Error(`${src} is not found in colorMapping nor imageMapping.`);
     }
-    setUpperBGSrc(src);
-    setUpperBGIn(true);
+    setUpperBgSrc(src);
+    setUpperBgIn(true);
     await sleep(TRANSITION_MS);
-    setLowerBGSrc(src);
-    setUpperBGIn(false);
+    setLowerBgSrc(src);
+    setUpperBgIn(false);
   };
 
   return (
@@ -299,9 +302,9 @@ const StoryContainer = (props: { episode: Episode }) => {
           play
         </button>
         {/* <button onClick={() => setPage(1)}>page</button> */}
-        <button onClick={() => changeBG('pink')}>pink</button>
-        <button onClick={() => changeBG('blue')}>blue</button>
-        <button onClick={() => changeBG('green')}>green</button>
+        <button onClick={() => changeBg('pink')}>pink</button>
+        <button onClick={() => changeBg('blue')}>blue</button>
+        <button onClick={() => changeBg('green')}>green</button>
       </div>
     </div>
   );
