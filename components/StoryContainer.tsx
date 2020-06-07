@@ -74,11 +74,27 @@ const idToPageId = (id: number) => {
   return `page${id + 1}`;
 };
 
-const SectionList = (props: { page: Page; textColor: string }) => {
-  const { page, textColor } = props;
+const SectionList = (props: { page: Page; textColor: string; imageMapping: { [key: string]: string } }) => {
+  const { page, textColor, imageMapping } = props;
+
+  const getImageSrc = (name: string) => {
+    if (name === '') {
+      throw new Error(`name is empty.`);
+    }
+
+    const imgSrc = imageMapping[name];
+    if (imgSrc) {
+      return imgSrc;
+    }
+    throw new Error(`${name} not found in  imageMapping.`);
+  };
+
   const sectionList = page.sections.map((section) => {
     return (
-      <div id={idToSectionId(section.id)} key={section.id} style={{ color: textColor }}>
+      <div id={idToSectionId(section.id)} key={section.id} style={{ color: textColor, minHeight: '20rem' }}>
+        {section.image !== '' && (
+          <img src={getImageSrc(section.image)} style={{ width: '100%', marginBottom: '3rem' }} />
+        )}
         {section.paragraphs.map((paragraph, idx) => {
           const keyVal = `${section.id}-${idx.toString()}`;
           return <Paragraph keyVal={keyVal} key={keyVal} text={paragraph} />;
@@ -89,8 +105,14 @@ const SectionList = (props: { page: Page; textColor: string }) => {
   return <>{sectionList}</>;
 };
 
-const PageList = (props: { pages: Page[]; currentPage: number; isPageShowing: boolean; textColor: string }) => {
-  const { pages, currentPage, isPageShowing, textColor } = props;
+const PageList = (props: {
+  pages: Page[];
+  currentPage: number;
+  isPageShowing: boolean;
+  textColor: string;
+  imageMapping: { [key: string]: string };
+}) => {
+  const { pages, currentPage, isPageShowing, textColor, imageMapping } = props;
   const pageElements = pages.map((page) => {
     return (
       <CSSTransition
@@ -102,7 +124,7 @@ const PageList = (props: { pages: Page[]; currentPage: number; isPageShowing: bo
         id={idToPageId(page.id)}
       >
         <div className="page-before">
-          <SectionList page={page} textColor={textColor} />
+          <SectionList page={page} textColor={textColor} imageMapping={imageMapping} />
         </div>
       </CSSTransition>
     );
@@ -160,6 +182,7 @@ const StoryContainer = (props: { episode: Episode }) => {
     top: 0,
     position: 'fixed' as 'fixed',
     backgroundSize: 'cover' as 'cover',
+    backgroundPosition: 'center' as 'center',
   };
 
   const getBgStyle = (bgName: string) => {
@@ -252,6 +275,14 @@ const StoryContainer = (props: { episode: Episode }) => {
   useEffect(() => {
     getSectionsY();
 
+    // preload
+    for (const key in episode.audioMapping) {
+      if (episode.audioMapping.hasOwnProperty(key)) {
+        const element = episode.audioMapping[key];
+        new Image().src = element;
+      }
+    }
+
     document.addEventListener('scroll', handleScroll);
     document.addEventListener('resize', getSectionsY);
     return () => {
@@ -336,7 +367,9 @@ const StoryContainer = (props: { episode: Episode }) => {
             currentPage={currentPage}
             isPageShowing={isPageShowing}
             textColor={textColor}
+            imageMapping={episode.imageMapping}
           />
+          <div style={{ width: '100%', padding: '3rem', marginTop: '30rem' }}>Next episode</div>
         </div>
       </div>
 
@@ -348,10 +381,6 @@ const StoryContainer = (props: { episode: Episode }) => {
         >
           play
         </button>
-        {/* <button onClick={() => setPage(1)}>page</button> */}
-        <button onClick={() => changeBg('pink')}>pink</button>
-        <button onClick={() => changeBg('blue')}>blue</button>
-        <button onClick={() => changeBg('green')}>green</button>
       </div>
     </div>
   );
