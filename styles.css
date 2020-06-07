@@ -30,7 +30,7 @@
 
 .page-enter-active {
   opacity: 1;
-  transition: opacity 800ms ease-in-out;
+  transition: opacity 600ms ease-in-out;
 }
 
 .page-enter-done {
@@ -43,7 +43,7 @@
 
 .page-exit-active {
   opacity: 0;
-  transition: opacity 800ms ease-in-out;
+  transition: opacity 600ms ease-in-out;
 }
 
 .page-exit-done {

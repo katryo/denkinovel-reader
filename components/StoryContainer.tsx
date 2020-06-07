@@ -7,7 +7,7 @@ const PINK = '#fecbc8';
 const BLUE = '#dceff5';
 const GREEN = '#dcfec8';
 const TRANSITION_MS = 2000;
-const PAGE_TRAINSITION_MS = 500;
+const PAGE_TRAINSITION_MS = 400;
 const DEFAULT_CURRENT_MUSIC_ID = -1;
 
 const sleep = async (ms: number) => {
@@ -22,17 +22,27 @@ interface Section {
   bg: string;
   image: string;
   id: number;
-  page: number;
+}
+
+interface IPageId {
+  pageId: number;
+}
+
+type SectionWithPageId = Section & IPageId;
+
+interface Page {
+  sections: Section[];
+  id: number;
 }
 
 interface Episode {
   seriesTitle: string;
   episodeTitle: string;
   creator: string;
-  sections: Section[];
-  audioMap: { [key: string]: string };
-  imageMap: { [key: string]: string };
-  colorMap: { [key: string]: string };
+  pages: Page[];
+  audioMapping: { [key: string]: string };
+  imageMapping: { [key: string]: string };
+  colorMapping: { [key: string]: string };
   defaultBg: string;
   defaultFilter: string;
   defaultTextColor: string;
@@ -64,31 +74,38 @@ const idToSectionId = (id: number) => {
   return `section${id}`;
 };
 
-const SectionsList = (props) => {
-  const { sections, currentPage, isPageShowing } = props;
-  const sectionsList = sections.map((section) => {
+const idToPageId = (id: number) => {
+  return `page${id}`;
+};
+
+const PageList = (props) => {
+  const { pages, currentPage, isPageShowing } = props;
+  const sections = pages.map((page) => {
+    const sectionList = page.sections.map((section) => {
+      return (
+        <div id={idToSectionId(section.id)}>
+          {section.paragraphs.map((paragraph, idx) => {
+            const keyVal = `${section.id}-${idx.toString()}`;
+            return <Paragraph keyVal={keyVal} key={keyVal} text={paragraph} />;
+          })}
+        </div>
+      );
+    });
     return (
       <CSSTransition
-        in={currentPage === section.page && isPageShowing}
+        in={currentPage === page.id && isPageShowing}
         appear={true}
         timeout={TRANSITION_MS}
         classNames="page"
-        key={section.id}
-        id={idToSectionId(section.id)}
+        key={page.id}
+        id={idToPageId(page.id)}
       >
-        <div className="page-before">
-          <div>
-            {section.paragraphs.map((paragraph, idx) => {
-              const keyVal = `${section.id}-${idx.toString()}`;
-              return <Paragraph keyVal={keyVal} key={keyVal} text={paragraph} />;
-            })}
-          </div>
-        </div>
+        <div className="page-before">{sectionList}</div>
       </CSSTransition>
     );
   });
 
-  return <div>{sectionsList}</div>;
+  return <div>{sections}</div>;
 };
 
 interface SectionIdDist {
@@ -97,6 +114,13 @@ interface SectionIdDist {
 
 const StoryContainer = (props: { episode: Episode }) => {
   const { episode } = props;
+  const sections: SectionWithPageId[] = episode.pages
+    .map((page) => {
+      return page.sections.map((section) => {
+        return { ...section, pageId: page.id };
+      });
+    })
+    .flat();
   const [lowerBGColor, setLowerBGColor] = useState(WHITE);
   const [upperBGColor, setUpperBGColor] = useState(WHITE);
   const [upperBGIn, setUpperBGIn] = useState(false);
@@ -111,7 +135,7 @@ const StoryContainer = (props: { episode: Episode }) => {
   const getSectionsY = () => {
     const storyContainer = document.getElementById(ID_STORY_CONTAINER);
     const storyContainerTop = storyContainer.getBoundingClientRect().top;
-    episode.sections.map((section, idx) => {
+    sections.map((section, idx) => {
       const id = idToSectionId(section.id);
       const elem = document.getElementById(id);
       const rect = elem.getBoundingClientRect();
@@ -127,10 +151,10 @@ const StoryContainer = (props: { episode: Episode }) => {
     async (e) => {
       const sectionId = getCurrentSectionId();
       const sectionIndex = sectionIdIndex[sectionId];
-      const currentSection = episode.sections[sectionIndex];
-      if (currentSection.page !== currentPage) {
+      const currentSection = sections[sectionIndex];
+      if (currentSection.pageId !== currentPage) {
         setIsPageShowing(false);
-        setPage(currentSection.page);
+        setPage(currentSection.pageId);
         await sleep(PAGE_TRAINSITION_MS);
         setIsPageShowing(true);
         // setPage((state) => currentSection.page);
@@ -153,10 +177,10 @@ const StoryContainer = (props: { episode: Episode }) => {
   });
 
   const getCurrentSectionId = () => {
-    if (episode.sections.length === 0) {
+    if (sections.length === 0) {
       return -1;
     }
-    const firstId = episode.sections[0].id;
+    const firstId = sections[0].id;
     const scrollTop = document.documentElement.scrollTop;
     const cur = { id: firstId, top: 0 };
     for (const key in sectionIdDist) {
@@ -237,7 +261,7 @@ const StoryContainer = (props: { episode: Episode }) => {
               "'游明朝',YuMincho,'ヒラギノ明朝 Pr6N','Hiragino Mincho Pr6N','ヒラギノ明朝 ProN','Hiragino Mincho ProN','ヒラギノ明朝 StdN','Hiragino Mincho StdN',HiraMinProN-W3,'HGS明朝B','HG明朝B',dcsymbols,'Helvetica Neue',Helvetica,Arial,'ヒラギノ角ゴ Pr6N','Hiragino Kaku Gothic Pr6N','ヒラギノ角ゴ ProN','Hiragino Kaku Gothic ProN','ヒラギノ角ゴ StdN','Hiragino Kaku Gothic StdN','Segoe UI',Verdana,'メイリオ',Meiryo,sans-serif",
           }}
         >
-          <SectionsList sections={episode.sections} currentPage={currentPage} isPageShowing={isPageShowing} />
+          <PageList pages={episode.pages} currentPage={currentPage} isPageShowing={isPageShowing} />
         </div>
       </div>
 
