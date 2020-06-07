@@ -16,32 +16,36 @@
   transition: opacity 2000ms ease-in-out;
 }
 
-.page-appear {
-  background: 'pink';
+.page-before {
+  opacity: 0;
 }
+
+/* .page-appear {
+  opacity: 0;
+} */
 
 .page-enter {
   opacity: 0;
-  background: 'red';
 }
 
 .page-enter-active {
   opacity: 1;
   transition: opacity 2000ms ease-in-out;
-  background: 'black';
+}
+
+.page-enter-done {
+  opacity: 1;
 }
 
 .page-exit {
   opacity: 1;
-  background: 'blue';
 }
 
 .page-exit-active {
   opacity: 0;
   transition: opacity 2000ms ease-in-out;
-  background: 'yellow';
 }
 
-.page-done {
-  background: 'green';
+.page-exit-done {
+  opacity: 0;
 }

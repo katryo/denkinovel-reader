@@ -1,6 +1,6 @@
 import { CSSTransition } from 'react-transition-group';
 import { Howl, Howler } from 'howler';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import fs from 'fs';
 import path from 'path';
 
@@ -23,6 +23,7 @@ interface Section {
   bg: string;
   image: string;
   id: number;
+  page: number;
 }
 
 interface Episode {
@@ -67,22 +68,27 @@ const idToSectionId = (id: number) => {
 const SectionsList = (props) => {
   const { sections, currentPage, isPageShowing } = props;
   const sectionsList = sections.map((section) => {
+    // const innerDivStyle = currentPage === section.page ? {} : { opacity: 0 };
+    // console.log({ sectionId: section.id, currentPage });
     return (
       <CSSTransition
         in={currentPage === section.page && isPageShowing}
+        appear={true}
         timeout={TRANSITION_MS}
         classNames="page"
         key={section.id}
         id={idToSectionId(section.id)}
-        onEnter={async () => {
-          await sleep(2000);
-        }}
+        // onEnter={async () => {
+        //   await sleep(2000);
+        // }}
       >
-        <div>
-          {section.paragraphs.map((paragraph, idx) => {
-            const keyVal = `${section.id}-${idx.toString()}`;
-            return <Paragraph keyVal={keyVal} key={keyVal} text={paragraph} />;
-          })}
+        <div className="page-before">
+          <div>
+            {section.paragraphs.map((paragraph, idx) => {
+              const keyVal = `${section.id}-${idx.toString()}`;
+              return <Paragraph keyVal={keyVal} key={keyVal} text={paragraph} />;
+            })}
+          </div>
         </div>
       </CSSTransition>
     );
@@ -91,7 +97,7 @@ const SectionsList = (props) => {
   return <div>{sectionsList}</div>;
 };
 
-interface SectionIdRectTop {
+interface SectionIdDist {
   [id: number]: number;
 }
 
@@ -104,43 +110,62 @@ const StoryContainer = (props: { episode: Episode }) => {
   const [isPageShowing, setIsPageShowing] = useState(true);
   const ID_STORY_CONTAINER = 'js-story-container';
   let currentBG = WHITE;
-  const sectionIdRectTop: SectionIdRectTop = {};
+  const sectionIdDist: SectionIdDist = {};
+  const sectionIdIndex: { [id: number]: number } = {};
   let effectBeginsHeight = 500;
 
-  const onScroll = (e) => {
-    const sectionId = getCurrentSectionId();
-    console.log({ sectionId });
+  const getSectionsY = () => {
+    const storyContainer = document.getElementById(ID_STORY_CONTAINER);
+    const storyContainerTop = storyContainer.getBoundingClientRect().top;
+    episode.sections.map((section, idx) => {
+      const id = idToSectionId(section.id);
+      const elem = document.getElementById(id);
+      const rect = elem.getBoundingClientRect();
+      // console.log({ idx, sectionId: section.id, rect });
+      sectionIdDist[section.id] = rect.top - storyContainerTop;
+      sectionIdIndex[section.id] = idx;
+    });
+
+    effectBeginsHeight = window.innerHeight / 2;
   };
 
   useEffect(() => {
+    console.log('useEffect');
     getSectionsY();
+
+    const onScroll = (e) => {
+      const sectionId = getCurrentSectionId();
+      const sectionIndex = sectionIdIndex[sectionId];
+      const currentSection = episode.sections[sectionIndex];
+      console.log({ currentSectionPage: currentSection.page, currentPage });
+      if (currentSection.page !== currentPage) {
+        setPage(currentSection.page);
+        // setPage((state) => currentSection.page);
+        // console.log('setPage called');
+        // console.log({ pageChangedTo: currentSection.page });
+      }
+    };
     document.addEventListener('scroll', onScroll);
     document.addEventListener('resize', getSectionsY);
     return () => {
       document.removeEventListener('scroll', onScroll);
       document.removeEventListener('resize', getSectionsY);
     };
-  }, []);
-
-  const getSectionsY = () => {
-    episode.sections.map((section) => {
-      const id = idToSectionId(section.id);
-      const elem = document.getElementById(id);
-      const rect = elem.getBoundingClientRect();
-      sectionIdRectTop[section.id] = rect.top;
-    });
-
-    effectBeginsHeight = window.innerHeight / 2;
-  };
+  }, [currentPage]);
 
   const getCurrentSectionId = () => {
-    const scrollTop = document.documentElement.scrollTop + effectBeginsHeight;
-    let cur: { id: string; top: number };
-    for (const key in sectionIdRectTop) {
-      if (sectionIdRectTop.hasOwnProperty(key)) {
-        const top = sectionIdRectTop[key];
-        if (top <= scrollTop && (!cur || cur.top < top)) {
-          cur = { id: key, top };
+    if (episode.sections.length === 0) {
+      return -1;
+    }
+    const firstId = episode.sections[0].id;
+    const scrollTop = document.documentElement.scrollTop;
+    const cur = { id: firstId, top: 0 };
+    for (const key in sectionIdDist) {
+      if (sectionIdDist.hasOwnProperty(key)) {
+        const topThreshold = sectionIdDist[key] - effectBeginsHeight;
+        if (topThreshold <= scrollTop && (!cur || cur.top < topThreshold)) {
+          cur.id = Number(key);
+          cur.top = topThreshold;
         }
       }
     }
@@ -219,7 +244,7 @@ const StoryContainer = (props: { episode: Episode }) => {
         >
           play
         </button>
-        <button onClick={() => setPage(1)}>page</button>
+        {/* <button onClick={() => setPage(1)}>page</button> */}
         <button onClick={() => changeBG(PINK)}>pink</button>
         <button
           onClick={async () => {
