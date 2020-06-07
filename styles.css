@@ -7,14 +7,13 @@
   transition: opacity 800ms ease-in-out;
 }
 
-.upper-bg-exit {
+/* .upper-bg-exit {
   opacity: 1;
 }
 
 .upper-bg-exit-active {
   opacity: 0;
-  transition: opacity 800ms ease-in-out;
-}
+} */
 
 .page-before {
   opacity: 0;

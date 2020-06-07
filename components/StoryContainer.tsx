@@ -2,7 +2,7 @@ import { CSSTransition } from 'react-transition-group';
 import { Howl, Howler } from 'howler';
 import { useState, useEffect, useCallback } from 'react';
 
-const TRANSITION_MS = 2000;
+const TRANSITION_MS = 800;
 const PAGE_TRAINSITION_MS = 400;
 const DEFAULT_CURRENT_MUSIC_ID = -1;
 
@@ -140,13 +140,38 @@ const StoryContainer = (props: { episode: Episode }) => {
 
   const defaultBg = getVisualSrc(episode.defaultBg);
 
-  const [lowerBGColor, setLowerBgSrc] = useState(defaultBg);
-  const [upperBGColor, setUpperBgSrc] = useState(defaultBg);
+  const DEFAULT_BG_STYLE = {
+    width: '100%',
+    height: '100%',
+    left: 0,
+    top: 0,
+    position: 'fixed' as 'fixed',
+    backgroundSize: 'cover' as 'cover',
+  };
+
+  const getBgStyle = (bgName: string) => {
+    const style = DEFAULT_BG_STYLE;
+    let src = episode.colorMapping[bgName];
+    if (src) {
+      style['backgroundColor'] = src;
+    } else {
+      const url = episode.imageMapping[bgName];
+      if (!url) {
+        throw new Error(`${src} is not found in colorMapping nor imageMapping.`);
+      }
+      src = `url("${url}")`;
+      style['backgroundImage'] = src;
+    }
+    return style;
+  };
+
+  const [lowerBgStyle, setLowerBgSrc] = useState(getBgStyle(episode.defaultBg));
+  const [upperBgStyle, setUpperBgSrc] = useState(getBgStyle(episode.defaultBg));
   const [textColor, setTextColor] = useState(getColor(episode.defaultTextColor));
-  const [upperBGIn, setUpperBgIn] = useState(false);
+  const [upperBgIn, setUpperBgIn] = useState(false);
   const [currentPage, setPage] = useState(0);
   const [isPageShowing, setIsPageShowing] = useState(true);
-  let currentBg = defaultBg;
+  const [currentBg, setCurrentBg] = useState(defaultBg);
   const ID_STORY_CONTAINER = 'js-story-container';
   const sectionIdDist: SectionIdDist = {};
   const sectionIdIndex: { [id: number]: number } = {};
@@ -166,11 +191,29 @@ const StoryContainer = (props: { episode: Episode }) => {
     effectBeginsHeight = window.innerHeight / 2;
   };
 
+  const changeBg = useCallback(
+    async (bgName: string) => {
+      const style = getBgStyle(bgName);
+      setUpperBgSrc(style);
+      setUpperBgIn(true);
+      await sleep(TRANSITION_MS);
+      setLowerBgSrc(style);
+      setUpperBgIn(false);
+    },
+    [upperBgStyle, lowerBgStyle, upperBgIn],
+  );
+
   const handleScroll = useCallback(
     async (e) => {
       const sectionId = getCurrentSectionId();
       const sectionIndex = sectionIdIndex[sectionId];
       const currentSection = sections[sectionIndex];
+
+      if (currentSection.bg !== currentBg) {
+        changeBg(currentSection.bg);
+        setCurrentBg(currentSection.bg);
+      }
+
       if (currentSection.pageId !== currentPage) {
         setIsPageShowing(false);
         setPage(currentSection.pageId);
@@ -178,7 +221,7 @@ const StoryContainer = (props: { episode: Episode }) => {
         setIsPageShowing(true);
       }
     },
-    [currentPage, isPageShowing],
+    [currentPage, isPageShowing, currentBg],
   );
 
   useEffect(() => {
@@ -229,44 +272,11 @@ const StoryContainer = (props: { episode: Episode }) => {
     const id = sound.play();
   };
 
-  const changeBg = async (bgName: string) => {
-    let src = episode.colorMapping[bgName];
-    if (!src) {
-      src = episode.imageMapping[bgName];
-    }
-    if (!src) {
-      throw new Error(`${src} is not found in colorMapping nor imageMapping.`);
-    }
-    setUpperBgSrc(src);
-    setUpperBgIn(true);
-    await sleep(TRANSITION_MS);
-    setLowerBgSrc(src);
-    setUpperBgIn(false);
-  };
-
   return (
     <div id={ID_STORY_CONTAINER}>
-      <div
-        style={{
-          width: '100%',
-          height: '100%',
-          left: 0,
-          top: 0,
-          background: lowerBGColor,
-          position: 'fixed',
-        }}
-      ></div>
-      <CSSTransition in={upperBGIn} timeout={TRANSITION_MS} classNames="upper-bg">
-        <div
-          style={{
-            width: '100%',
-            height: '100%',
-            left: 0,
-            top: 0,
-            background: upperBGColor,
-            position: 'fixed',
-          }}
-        ></div>
+      <div style={lowerBgStyle}></div>
+      <CSSTransition in={upperBgIn} timeout={TRANSITION_MS} classNames="upper-bg">
+        <div style={upperBgStyle}></div>
       </CSSTransition>
       <div
         style={{
