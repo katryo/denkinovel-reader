@@ -74,19 +74,24 @@ const idToPageId = (id: number) => {
   return `page${id + 1}`;
 };
 
-const PageList = (props) => {
+const SectionList = (props: { page: Page; textColor: string }) => {
+  const { page, textColor } = props;
+  const sectionList = page.sections.map((section) => {
+    return (
+      <div id={idToSectionId(section.id)} key={section.id} style={{ color: textColor }}>
+        {section.paragraphs.map((paragraph, idx) => {
+          const keyVal = `${section.id}-${idx.toString()}`;
+          return <Paragraph keyVal={keyVal} key={keyVal} text={paragraph} />;
+        })}
+      </div>
+    );
+  });
+  return <>{sectionList}</>;
+};
+
+const PageList = (props: { pages: Page[]; currentPage: number; isPageShowing: boolean; textColor: string }) => {
   const { pages, currentPage, isPageShowing, textColor } = props;
-  const sections = pages.map((page) => {
-    const sectionList = page.sections.map((section) => {
-      return (
-        <div id={idToSectionId(section.id)} key={section.id} style={{ color: textColor }}>
-          {section.paragraphs.map((paragraph, idx) => {
-            const keyVal = `${section.id}-${idx.toString()}`;
-            return <Paragraph keyVal={keyVal} key={keyVal} text={paragraph} />;
-          })}
-        </div>
-      );
-    });
+  const pageElements = pages.map((page) => {
     return (
       <CSSTransition
         in={currentPage === page.id && isPageShowing}
@@ -96,12 +101,14 @@ const PageList = (props) => {
         key={page.id}
         id={idToPageId(page.id)}
       >
-        <div className="page-before">{sectionList}</div>
+        <div className="page-before">
+          <SectionList page={page} textColor={textColor} />
+        </div>
       </CSSTransition>
     );
   });
 
-  return <div>{sections}</div>;
+  return <div>{pageElements}</div>;
 };
 
 interface SectionIdDist {
