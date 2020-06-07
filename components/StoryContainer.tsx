@@ -2,10 +2,6 @@ import { CSSTransition } from 'react-transition-group';
 import { Howl, Howler } from 'howler';
 import { useState, useEffect, useCallback } from 'react';
 
-const WHITE = '#ffffff';
-const PINK = '#fecbc8';
-const BLUE = '#dceff5';
-const GREEN = '#dcfec8';
 const TRANSITION_MS = 2000;
 const PAGE_TRAINSITION_MS = 400;
 const DEFAULT_CURRENT_MUSIC_ID = -1;
@@ -75,15 +71,15 @@ const idToSectionId = (id: number) => {
 };
 
 const idToPageId = (id: number) => {
-  return `page${id}`;
+  return `page${id + 1}`;
 };
 
 const PageList = (props) => {
-  const { pages, currentPage, isPageShowing } = props;
+  const { pages, currentPage, isPageShowing, textColor } = props;
   const sections = pages.map((page) => {
     const sectionList = page.sections.map((section) => {
       return (
-        <div id={idToSectionId(section.id)}>
+        <div id={idToSectionId(section.id)} key={section.id} style={{ color: textColor }}>
           {section.paragraphs.map((paragraph, idx) => {
             const keyVal = `${section.id}-${idx.toString()}`;
             return <Paragraph keyVal={keyVal} key={keyVal} text={paragraph} />;
@@ -121,13 +117,34 @@ const StoryContainer = (props: { episode: Episode }) => {
       });
     })
     .flat();
-  const [lowerBGColor, setLowerBGColor] = useState(WHITE);
-  const [upperBGColor, setUpperBGColor] = useState(WHITE);
+
+  const getColor = (name: string) => {
+    const color = episode.colorMapping[name];
+    if (!color) {
+      throw new Error(`${name} not found in colorMapping.`);
+    }
+    return color;
+  };
+
+  const getVisualSrc = (name: string) => {
+    const color = episode.colorMapping[name];
+    if (color) {
+      return color;
+    }
+    const imgSrc = episode.imageMapping[name];
+    if (imgSrc) {
+      return imgSrc;
+    }
+    throw new Error(`${name} not found in colorMapping nor imageMapping.`);
+  };
+
+  const [lowerBGColor, setLowerBGSrc] = useState(getVisualSrc(episode.defaultBg));
+  const [upperBGColor, setUpperBGSrc] = useState(getVisualSrc(episode.defaultBg));
+  const [textColor, setTextColor] = useState(getColor(episode.defaultTextColor));
   const [upperBGIn, setUpperBGIn] = useState(false);
   const [currentPage, setPage] = useState(0);
   const [isPageShowing, setIsPageShowing] = useState(true);
   const ID_STORY_CONTAINER = 'js-story-container';
-  let currentBG = WHITE;
   const sectionIdDist: SectionIdDist = {};
   const sectionIdIndex: { [id: number]: number } = {};
   let effectBeginsHeight = 500;
@@ -139,7 +156,6 @@ const StoryContainer = (props: { episode: Episode }) => {
       const id = idToSectionId(section.id);
       const elem = document.getElementById(id);
       const rect = elem.getBoundingClientRect();
-      // console.log({ idx, sectionId: section.id, rect });
       sectionIdDist[section.id] = rect.top - storyContainerTop;
       sectionIdIndex[section.id] = idx;
     });
@@ -157,9 +173,6 @@ const StoryContainer = (props: { episode: Episode }) => {
         setPage(currentSection.pageId);
         await sleep(PAGE_TRAINSITION_MS);
         setIsPageShowing(true);
-        // setPage((state) => currentSection.page);
-        // console.log('setPage called');
-        // console.log({ pageChangedTo: currentSection.page });
       }
     },
     [currentPage, isPageShowing],
@@ -213,11 +226,18 @@ const StoryContainer = (props: { episode: Episode }) => {
     const id = sound.play();
   };
 
-  const changeBG = async (color: string) => {
-    setUpperBGColor(color);
+  const changeBG = async (bgName: string) => {
+    let src = episode.colorMapping[bgName];
+    if (!src) {
+      src = episode.imageMapping[bgName];
+    }
+    if (!src) {
+      throw new Error(`${src} is not found in colorMapping nor imageMapping.`);
+    }
+    setUpperBGSrc(src);
     setUpperBGIn(true);
     await sleep(TRANSITION_MS);
-    setLowerBGColor(color);
+    setLowerBGSrc(src);
     setUpperBGIn(false);
   };
 
@@ -252,7 +272,7 @@ const StoryContainer = (props: { episode: Episode }) => {
           position: 'relative',
         }}
       >
-        <h1 style={{ textAlign: 'center' }}>{episode.episodeTitle}</h1>
+        <h1 style={{ textAlign: 'center', color: getColor(episode.defaultTextColor) }}>{episode.episodeTitle}</h1>
         <div
           style={{
             fontSize: 17.5,
@@ -261,7 +281,12 @@ const StoryContainer = (props: { episode: Episode }) => {
               "'游明朝',YuMincho,'ヒラギノ明朝 Pr6N','Hiragino Mincho Pr6N','ヒラギノ明朝 ProN','Hiragino Mincho ProN','ヒラギノ明朝 StdN','Hiragino Mincho StdN',HiraMinProN-W3,'HGS明朝B','HG明朝B',dcsymbols,'Helvetica Neue',Helvetica,Arial,'ヒラギノ角ゴ Pr6N','Hiragino Kaku Gothic Pr6N','ヒラギノ角ゴ ProN','Hiragino Kaku Gothic ProN','ヒラギノ角ゴ StdN','Hiragino Kaku Gothic StdN','Segoe UI',Verdana,'メイリオ',Meiryo,sans-serif",
           }}
         >
-          <PageList pages={episode.pages} currentPage={currentPage} isPageShowing={isPageShowing} />
+          <PageList
+            pages={episode.pages}
+            currentPage={currentPage}
+            isPageShowing={isPageShowing}
+            textColor={textColor}
+          />
         </div>
       </div>
 
@@ -274,29 +299,9 @@ const StoryContainer = (props: { episode: Episode }) => {
           play
         </button>
         {/* <button onClick={() => setPage(1)}>page</button> */}
-        <button onClick={() => changeBG(PINK)}>pink</button>
-        <button
-          onClick={async () => {
-            setUpperBGColor(GREEN);
-            setUpperBGIn(true);
-            await sleep(TRANSITION_MS);
-            setLowerBGColor(GREEN);
-            setUpperBGIn(false);
-          }}
-        >
-          green
-        </button>
-        <button
-          onClick={async () => {
-            setUpperBGColor(BLUE);
-            setUpperBGIn(true);
-            await sleep(TRANSITION_MS);
-            setLowerBGColor(BLUE);
-            setUpperBGIn(false);
-          }}
-        >
-          blue
-        </button>
+        <button onClick={() => changeBG('pink')}>pink</button>
+        <button onClick={() => changeBG('blue')}>blue</button>
+        <button onClick={() => changeBG('green')}>green</button>
       </div>
     </div>
   );
