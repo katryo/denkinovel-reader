@@ -126,9 +126,18 @@ const PageList = (props: {
         <div className="page-before" style={{ minHeight: '20rem' }}>
           <SectionList page={page} textColor={textColor} imageMapping={imageMapping} />
           <div className="scroll-indicator" style={{ textAlign: 'center', marginTop: '2rem' }}>
-            <span></span>
-            <span></span>
-            <span></span>
+            <a
+              href="#"
+              style={{ display: 'inline-block', width: 60, height: 60 }}
+              onClick={(e) => {
+                e.preventDefault();
+                scrollBy(0, 400);
+              }}
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </a>
           </div>
         </div>
       </CSSTransition>
@@ -334,7 +343,7 @@ const StoryContainer = (props: { episode: Episode }) => {
   };
 
   return (
-    <div id={ID_STORY_CONTAINER}>
+    <div id={ID_STORY_CONTAINER} style={{ scrollBehavior: 'smooth' }}>
       <div style={lowerBgStyle}></div>
       <CSSTransition in={upperBgIn} timeout={TRANSITION_MS} classNames="upper-bg">
         <div style={upperBgStyle}></div>
