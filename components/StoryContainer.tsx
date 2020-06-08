@@ -126,18 +126,9 @@ const PageList = (props: {
         <div className="page-before" style={{ minHeight: '20rem' }}>
           <SectionList page={page} textColor={textColor} imageMapping={imageMapping} />
           <div className="scroll-indicator" style={{ textAlign: 'center', marginTop: '2rem' }}>
-            <a
-              href="#"
-              style={{ display: 'inline-block', width: 60, height: 60 }}
-              onClick={(e) => {
-                e.preventDefault();
-                scrollBy(0, 400);
-              }}
-            >
-              <span></span>
-              <span></span>
-              <span></span>
-            </a>
+            <span></span>
+            <span></span>
+            <span></span>
           </div>
         </div>
       </CSSTransition>
@@ -374,6 +365,7 @@ const StoryContainer = (props: { episode: Episode }) => {
           style={{
             fontSize: 17.5,
             lineHeight: 1.8,
+            textAlign: 'justify',
             fontFamily:
               "'游明朝',YuMincho,'ヒラギノ明朝 Pr6N','Hiragino Mincho Pr6N','ヒラギノ明朝 ProN','Hiragino Mincho ProN','ヒラギノ明朝 StdN','Hiragino Mincho StdN',HiraMinProN-W3,'HGS明朝B','HG明朝B',dcsymbols,'Helvetica Neue',Helvetica,Arial,'ヒラギノ角ゴ Pr6N','Hiragino Kaku Gothic Pr6N','ヒラギノ角ゴ ProN','Hiragino Kaku Gothic ProN','ヒラギノ角ゴ StdN','Hiragino Kaku Gothic StdN','Segoe UI',Verdana,'メイリオ',Meiryo,sans-serif",
           }}
