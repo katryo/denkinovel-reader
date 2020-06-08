@@ -283,10 +283,10 @@ const StoryContainer = (props: { episode: Episode }) => {
     getSectionsY();
 
     // preload
-    for (const key in episode.audioMapping) {
-      if (episode.audioMapping.hasOwnProperty(key)) {
+    for (const key in episode.imageMapping) {
+      if (episode.imageMapping.hasOwnProperty(key)) {
         if (!(key in imageNameSrc)) {
-          const element = episode.audioMapping[key];
+          const element = episode.imageMapping[key];
           imageNameSrc[key] = new Image();
           imageNameSrc[key].src = element;
         }
