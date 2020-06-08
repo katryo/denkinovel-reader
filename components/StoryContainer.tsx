@@ -142,6 +142,8 @@ interface SectionIdDist {
   [id: number]: number;
 }
 
+const imageNameSrc = {};
+
 const StoryContainer = (props: { episode: Episode }) => {
   const { episode } = props;
   const sections: SectionWithPageId[] = episode.pages
@@ -283,8 +285,11 @@ const StoryContainer = (props: { episode: Episode }) => {
     // preload
     for (const key in episode.audioMapping) {
       if (episode.audioMapping.hasOwnProperty(key)) {
-        const element = episode.audioMapping[key];
-        new Image().src = element;
+        if (!(key in imageNameSrc)) {
+          const element = episode.audioMapping[key];
+          imageNameSrc[key] = new Image();
+          imageNameSrc[key].src = element;
+        }
       }
     }
 
