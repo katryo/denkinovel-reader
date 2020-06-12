@@ -1,6 +1,7 @@
 import { CSSTransition } from 'react-transition-group';
 import { Howl, Howler } from 'howler';
 import { useState, useEffect, useCallback } from 'react';
+import { RubiedParagraph } from './RubiedParagraph';
 
 const TRANSITION_MS = 800;
 const PAGE_TRAINSITION_MS = 400;
@@ -356,6 +357,7 @@ const StoryContainer = (props: { episode: Episode }) => {
         }}
       >
         <header style={{ textAlign: 'center' }}>
+          <RubiedParagraph text={''} />
           <h1
             style={{
               color: getColor(episode.defaultTextColor),
