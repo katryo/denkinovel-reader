@@ -1,37 +1,18 @@
 import { ReactElement, Fragment } from 'react';
-
-const PLAIN = 'PLAIN';
-const RUBY = 'RUBY';
-
-interface PlainElement {
-  type: typeof PLAIN;
-  plainText: string;
-}
-
-interface RubyElement {
-  type: typeof RUBY;
-  baseText: string;
-  rubyText: string;
-}
-
-type Element = PlainElement | RubyElement;
+import { parse, isPlain } from '../lib/rubyParser';
 
 const RubiedParagraph = (props: { text: string }) => {
   const { text } = props;
 
-  const doc: Element[] = [
-    { type: PLAIN, plainText: 'それでは' },
+  const doc = [
+    { type: 'PLAIN' as 'PLAIN', plainText: 'それでは' },
     {
-      type: RUBY,
+      type: 'RUBY' as 'RUBY',
       baseText: '明日',
       rubyText: 'あした',
     },
-    { type: PLAIN, plainText: '会いましょう' },
+    { type: 'PLAIN' as 'PLAIN', plainText: '会いましょう' },
   ];
-
-  const isPlain = (elem: Element): elem is PlainElement => {
-    return elem.type === PLAIN;
-  };
 
   const ps: ReactElement[] = [];
   for (let i = 0; i < doc.length; i++) {
