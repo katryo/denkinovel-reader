@@ -28,7 +28,7 @@ type Action = (char: string, cur: Props, i: number, text: string) => Props;
 const errorAction = (char: string, cur: Props, i: number, text: string) => {
   const spaces = [];
   for (let index = 0; index < i; index++) {
-    spaces.push(' '); // TODO: Handle multi byte characters
+    spaces.push(' '); // TODO: Handle multi width characters
   }
   const spaceString = spaces.join('');
   throw new Error(`Parse error. Text index: ${i}.\n${text}\n${spaceString}^`);
@@ -67,15 +67,25 @@ const rubyEndAction: Action = (char: string, cur: Props, i: number, text: string
   if (cur.rubyStartIdx === DEFAULT_IDX) {
     errorAction(char, cur, i, text);
   }
-  const elem: RubyElement = {
+  const plainElem: PlainElement = {
+    type: PLAIN,
+    plainText: text.slice(cur.lastRubyEndIdx + 1, cur.baseStartIdx),
+  };
+  // Could be plainElem.plainText !== ''
+  if (cur.lastRubyEndIdx < i - 1) {
+    cur.elements.push(plainElem);
+  }
+
+  const rubyElem: RubyElement = {
     type: RUBY,
     baseText: text.slice(cur.baseStartIdx + 1, cur.rubyStartIdx),
     rubyText: text.slice(cur.rubyStartIdx + 1, i),
   };
+  cur.elements.push(rubyElem);
+
   cur.rubyStartIdx = DEFAULT_IDX;
   cur.baseStartIdx = DEFAULT_IDX;
   cur.lastRubyEndIdx = i;
-  cur.elements.push(elem);
   return cur;
 };
 
