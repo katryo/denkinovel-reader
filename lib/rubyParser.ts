@@ -23,60 +23,60 @@ interface Props {
   lastRubyEndIdx: number;
 }
 
-type Action = (char: string, cur: Props, i: number, text: string) => Props;
+type Action = (char: string, props: Props, i: number, text: string) => Props;
 
-const noOpAction: Action = (char: string, cur: Props, i: number, text: string) => {
-  return cur;
+const noOpAction: Action = (char: string, props: Props, i: number, text: string) => {
+  return props;
 };
 
-const baseStartAction: Action = (char: string, cur: Props, i: number, text: string) => {
-  if (cur.baseStartIdx !== DEFAULT_IDX) {
-    return cur;
+const baseStartAction: Action = (char: string, props: Props, i: number, text: string) => {
+  if (props.baseStartIdx !== DEFAULT_IDX) {
+    return props;
   }
-  if (cur.rubyStartIdx !== DEFAULT_IDX) {
-    return cur;
+  if (props.rubyStartIdx !== DEFAULT_IDX) {
+    return props;
   }
-  cur.baseStartIdx = i;
-  return cur;
+  props.baseStartIdx = i;
+  return props;
 };
 
-const rubyStartAction: Action = (char: string, cur: Props, i: number, text: string) => {
-  if (cur.baseStartIdx === DEFAULT_IDX) {
-    return cur;
+const rubyStartAction: Action = (char: string, props: Props, i: number, text: string) => {
+  if (props.baseStartIdx === DEFAULT_IDX) {
+    return props;
   }
-  if (cur.rubyStartIdx !== DEFAULT_IDX) {
-    return cur;
+  if (props.rubyStartIdx !== DEFAULT_IDX) {
+    return props;
   }
-  cur.rubyStartIdx = i;
-  return cur;
+  props.rubyStartIdx = i;
+  return props;
 };
 
-const rubyEndAction: Action = (char: string, cur: Props, i: number, text: string) => {
-  if (cur.baseStartIdx === DEFAULT_IDX) {
-    return cur;
+const rubyEndAction: Action = (char: string, props: Props, i: number, text: string) => {
+  if (props.baseStartIdx === DEFAULT_IDX) {
+    return props;
   }
-  if (cur.rubyStartIdx === DEFAULT_IDX) {
-    return cur;
+  if (props.rubyStartIdx === DEFAULT_IDX) {
+    return props;
   }
   const plainElem: PlainElement = {
     type: PLAIN,
-    plainText: text.slice(cur.lastRubyEndIdx + 1, cur.baseStartIdx),
+    plainText: text.slice(props.lastRubyEndIdx + 1, props.baseStartIdx),
   };
   if (plainElem.plainText !== '') {
-    cur.elements.push(plainElem);
+    props.elements.push(plainElem);
   }
 
   const rubyElem: RubyElement = {
     type: RUBY,
-    baseText: text.slice(cur.baseStartIdx + 1, cur.rubyStartIdx),
-    rubyText: text.slice(cur.rubyStartIdx + 1, i),
+    baseText: text.slice(props.baseStartIdx + 1, props.rubyStartIdx),
+    rubyText: text.slice(props.rubyStartIdx + 1, i),
   };
-  cur.elements.push(rubyElem);
+  props.elements.push(rubyElem);
 
-  cur.rubyStartIdx = DEFAULT_IDX;
-  cur.baseStartIdx = DEFAULT_IDX;
-  cur.lastRubyEndIdx = i;
-  return cur;
+  props.rubyStartIdx = DEFAULT_IDX;
+  props.baseStartIdx = DEFAULT_IDX;
+  props.lastRubyEndIdx = i;
+  return props;
 };
 
 const isPlain = (elem: TextElement): elem is PlainElement => {
