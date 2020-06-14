@@ -25,25 +25,16 @@ interface Props {
 
 type Action = (char: string, cur: Props, i: number, text: string) => Props;
 
-const throwError = (char: string, cur: Props, i: number, text: string) => {
-  const spaces = [];
-  for (let index = 0; index < i; index++) {
-    spaces.push(' '); // TODO: Handle multi width characters
-  }
-  const spaceString = spaces.join('');
-  throw new Error(`Parse error. Text index: ${i}.\n${text}\n${spaceString}^`);
-};
-
 const noOpAction: Action = (char: string, cur: Props, i: number, text: string) => {
   return cur;
 };
 
 const baseStartAction: Action = (char: string, cur: Props, i: number, text: string) => {
   if (cur.baseStartIdx !== DEFAULT_IDX) {
-    throwError(char, cur, i, text);
+    return cur;
   }
   if (cur.rubyStartIdx !== DEFAULT_IDX) {
-    throwError(char, cur, i, text);
+    return cur;
   }
   cur.baseStartIdx = i;
   return cur;
@@ -51,10 +42,10 @@ const baseStartAction: Action = (char: string, cur: Props, i: number, text: stri
 
 const rubyStartAction: Action = (char: string, cur: Props, i: number, text: string) => {
   if (cur.baseStartIdx === DEFAULT_IDX) {
-    throwError(char, cur, i, text);
+    return cur;
   }
   if (cur.rubyStartIdx !== DEFAULT_IDX) {
-    throwError(char, cur, i, text);
+    return cur;
   }
   cur.rubyStartIdx = i;
   return cur;
@@ -62,17 +53,16 @@ const rubyStartAction: Action = (char: string, cur: Props, i: number, text: stri
 
 const rubyEndAction: Action = (char: string, cur: Props, i: number, text: string) => {
   if (cur.baseStartIdx === DEFAULT_IDX) {
-    throwError(char, cur, i, text);
+    return cur;
   }
   if (cur.rubyStartIdx === DEFAULT_IDX) {
-    throwError(char, cur, i, text);
+    return cur;
   }
   const plainElem: PlainElement = {
     type: PLAIN,
     plainText: text.slice(cur.lastRubyEndIdx + 1, cur.baseStartIdx),
   };
-  // Could be plainElem.plainText !== ''
-  if (cur.lastRubyEndIdx < i - 1) {
+  if (plainElem.plainText !== '') {
     cur.elements.push(plainElem);
   }
 
