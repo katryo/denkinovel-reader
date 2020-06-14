@@ -1,18 +1,10 @@
 import { ReactElement, Fragment } from 'react';
 import { parse, isPlain } from '../lib/rubyParser';
 
-const RubiedParagraph = (props: { text: string }) => {
-  const { text } = props;
+const RubiedParagraph = (props: { text: string; style: any }) => {
+  const { text, style } = props;
 
-  const doc = [
-    { type: 'PLAIN' as 'PLAIN', plainText: 'それでは' },
-    {
-      type: 'RUBY' as 'RUBY',
-      baseText: '明日',
-      rubyText: 'あした',
-    },
-    { type: 'PLAIN' as 'PLAIN', plainText: '会いましょう' },
-  ];
+  const doc = parse(text);
 
   const ps: ReactElement[] = [];
   for (let i = 0; i < doc.length; i++) {
@@ -31,7 +23,7 @@ const RubiedParagraph = (props: { text: string }) => {
     }
   }
 
-  return <p style={{ color: 'white' }}>{ps}</p>;
+  return <p style={style}>{ps}</p>;
 };
 
 export { RubiedParagraph };

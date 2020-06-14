@@ -60,9 +60,13 @@ const Paragraph = (props) => {
     );
   } else {
     return (
-      <p key={keyVal} style={{ margin: 0 }}>
-        {text}
-      </p>
+      <RubiedParagraph
+        text={text}
+        key={keyVal}
+        style={{
+          margin: 0,
+        }}
+      />
     );
   }
 };
@@ -357,7 +361,6 @@ const StoryContainer = (props: { episode: Episode }) => {
         }}
       >
         <header style={{ textAlign: 'center' }}>
-          <RubiedParagraph text={''} />
           <h1
             style={{
               color: getColor(episode.defaultTextColor),
