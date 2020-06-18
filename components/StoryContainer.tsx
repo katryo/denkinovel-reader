@@ -32,13 +32,18 @@ interface Page {
   id: number;
 }
 
+interface ImageMappingItem {
+  small: string;
+  large: string;
+}
+
 interface Episode {
   seriesTitle: string;
   episodeTitle: string;
   creator: string;
   pages: Page[];
   audioMapping: { [key: string]: string };
-  imageMapping: { [key: string]: string };
+  imageMapping: { [key: string]: ImageMappingItem };
   colorMapping: { [key: string]: string };
   defaultBg: string;
   defaultFilter: string;
@@ -79,26 +84,52 @@ const idToPageId = (id: number) => {
   return `page${id + 1}`;
 };
 
-const SectionList = (props: { page: Page; textColor: string; imageMapping: { [key: string]: string } }) => {
-  const { page, textColor, imageMapping } = props;
+interface SectionIdDist {
+  [id: number]: number;
+}
 
-  const getImageSrc = (name: string) => {
-    if (name === '') {
-      throw new Error(`name is empty.`);
-    }
+const imageInstances = {};
+const imageLoaded: { [key: string]: { small: boolean; large: boolean } } = {};
 
-    const imgSrc = imageMapping[name];
-    if (imgSrc) {
-      return imgSrc;
-    }
-    throw new Error(`${name} not found in  imageMapping.`);
-  };
+const getVisualSrc = (
+  name: string,
+  imageMapping: { [key: string]: ImageMappingItem },
+  colorMapping: { [key: string]: string },
+) => {
+  if (name === '') {
+    throw new Error(`name is empty.`);
+  }
+  const color = colorMapping[name];
+  if (color) {
+    return color;
+  }
+  const imageMappingItem = imageMapping[name];
+  if (!imageMappingItem) {
+    throw new Error(`${name} is not found in colorMapping nor imageMapping.`);
+  }
+  if (imageLoaded[name] && imageLoaded[name].large) {
+    return imageMappingItem.large;
+  } else {
+    return imageMappingItem.small;
+  }
+};
+
+const SectionList = (props: {
+  page: Page;
+  textColor: string;
+  imageMapping: { [key: string]: ImageMappingItem };
+  colorMapping: { [key: string]: string };
+}) => {
+  const { page, textColor, imageMapping, colorMapping } = props;
 
   const sectionList = page.sections.map((section) => {
     return (
       <div id={idToSectionId(section.id)} key={section.id} style={{ color: textColor }}>
         {section.image !== '' && (
-          <img src={getImageSrc(section.image)} style={{ width: '100%', marginBottom: '3rem' }} />
+          <img
+            src={getVisualSrc(section.image, imageMapping, colorMapping)}
+            style={{ width: '100%', marginBottom: '3rem' }}
+          />
         )}
         {section.paragraphs.map((paragraph, idx) => {
           const keyVal = `${section.id}-${idx.toString()}`;
@@ -115,9 +146,10 @@ const PageList = (props: {
   currentPage: number;
   isPageShowing: boolean;
   textColor: string;
-  imageMapping: { [key: string]: string };
+  imageMapping: { [key: string]: ImageMappingItem };
+  colorMapping: { [key: string]: string };
 }) => {
-  const { pages, currentPage, isPageShowing, textColor, imageMapping } = props;
+  const { pages, currentPage, isPageShowing, textColor, imageMapping, colorMapping } = props;
   const pageElements = pages.map((page) => {
     return (
       <CSSTransition
@@ -129,7 +161,7 @@ const PageList = (props: {
         id={idToPageId(page.id)}
       >
         <div className="page-before" style={{ minHeight: '20rem' }}>
-          <SectionList page={page} textColor={textColor} imageMapping={imageMapping} />
+          <SectionList page={page} textColor={textColor} imageMapping={imageMapping} colorMapping={colorMapping} />
           <div className="scroll-indicator" style={{ textAlign: 'center', marginTop: '2rem' }}>
             <span></span>
             <span></span>
@@ -142,12 +174,6 @@ const PageList = (props: {
 
   return <div>{pageElements}</div>;
 };
-
-interface SectionIdDist {
-  [id: number]: number;
-}
-
-const imageNameSrc = {};
 
 const StoryContainer = (props: { episode: Episode }) => {
   const { episode } = props;
@@ -170,22 +196,7 @@ const StoryContainer = (props: { episode: Episode }) => {
     return color;
   };
 
-  const getVisualSrc = (name: string) => {
-    if (name === '') {
-      throw new Error(`name is empty.`);
-    }
-    const color = episode.colorMapping[name];
-    if (color) {
-      return color;
-    }
-    const imgSrc = episode.imageMapping[name];
-    if (imgSrc) {
-      return imgSrc;
-    }
-    throw new Error(`${name} not found in colorMapping nor imageMapping.`);
-  };
-
-  const defaultBg = getVisualSrc(episode.defaultBg);
+  const defaultBg = getVisualSrc(episode.defaultBg, episode.imageMapping, episode.colorMapping);
 
   const FULL_SCREEN_STYLE = {
     width: '100%',
@@ -206,11 +217,15 @@ const StoryContainer = (props: { episode: Episode }) => {
     if (src) {
       style['backgroundColor'] = src;
     } else {
-      const url = episode.imageMapping[bgName];
-      if (!url) {
-        throw new Error(`${src} is not found in colorMapping nor imageMapping.`);
+      const imageMappingItem = episode.imageMapping[bgName];
+      if (!imageMappingItem) {
+        throw new Error(`${bgName} is not found in colorMapping nor imageMapping.`);
       }
-      src = `url("${url}")`;
+      if (imageLoaded[bgName].large) {
+        src = `url("${imageMappingItem.large}")`;
+      } else {
+        src = `url("${imageMappingItem.small}")`;
+      }
       style['backgroundImage'] = src;
     }
     return style;
@@ -290,10 +305,24 @@ const StoryContainer = (props: { episode: Episode }) => {
     // preload
     for (const key in episode.imageMapping) {
       if (episode.imageMapping.hasOwnProperty(key)) {
-        if (!(key in imageNameSrc)) {
+        if (!(key in imageInstances)) {
           const element = episode.imageMapping[key];
-          imageNameSrc[key] = new Image();
-          imageNameSrc[key].src = element;
+          imageInstances[key] = {
+            small: new Image(),
+            large: new Image(),
+          };
+          imageLoaded[key] = {
+            small: false,
+            large: false,
+          };
+          imageInstances[key].small.onload = () => {
+            imageLoaded[key].small = true;
+          };
+          imageInstances[key].large.onload = () => {
+            imageLoaded[key].large = true;
+          };
+          imageInstances[key].small.src = element.small;
+          imageInstances[key].large.src = element.large;
         }
       }
     }
@@ -385,6 +414,7 @@ const StoryContainer = (props: { episode: Episode }) => {
             isPageShowing={isPageShowing}
             textColor={textColor}
             imageMapping={episode.imageMapping}
+            colorMapping={episode.colorMapping}
           />
           <div style={{ width: '100%', marginTop: '30rem' }}>Next episode</div>
         </div>
