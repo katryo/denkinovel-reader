@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Link from 'next/link';
 import { Flex } from '@chakra-ui/core';
 
 const Home = () => (
@@ -16,9 +17,18 @@ const Home = () => (
         </Flex>
 
         <Flex>
-          <p className="description">
-            Get started by editing <code>pages/index.js</code>
-          </p>
+          <ul>
+            <li>
+              <Link href="/">
+                <a>Home</a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/demo/2">
+                <a>2</a>
+              </Link>
+            </li>
+          </ul>
         </Flex>
       </Flex>
     </main>

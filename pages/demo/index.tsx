@@ -1,7 +1,5 @@
-import fs from 'fs';
-import path from 'path';
 import Head from 'next/head';
-import { StoryContainer } from '../../components/StoryContainer';
+import Link from 'next/link';
 
 const Demo = (props) => {
   return (
@@ -10,22 +8,22 @@ const Demo = (props) => {
         <title>Denkinovel Demo</title>
         <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap" rel="stylesheet"></link>
       </Head>
-      <StoryContainer episode={props.episode} />
+      <div>
+        <ul>
+          <li>
+            <Link href="/">
+              <a>Home</a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/demo/2">
+              <a>2</a>
+            </Link>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };
 
 export default Demo;
-
-export async function getStaticProps() {
-  const filePath = path.join(process.cwd(), 'static', 'episode.json');
-
-  const episodeJSON = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-  // By returning { props: posts }, the Blog component
-  // will receive `posts` as a prop at build time`
-  return {
-    props: {
-      episode: episodeJSON.episode,
-    },
-  };
-}

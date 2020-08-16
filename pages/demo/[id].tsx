@@ -18,13 +18,17 @@ const Demo = (props) => {
 export default Demo;
 
 export async function getStaticPaths() {
+  const episodeNums = ['1', '2'];
+  const paths = episodeNums.map((num) => {
+    return `/demo/${num}`;
+  });
   // We'll pre-render only these paths at build time.
   // { fallback: false } means other routes should 404.
-  return { paths: [`/demo/2`], fallback: false };
+  return { paths, fallback: false };
 }
 
 export async function getStaticProps({ params }) {
-  const filePath = path.join(process.cwd(), 'static', 'episode2.json');
+  const filePath = path.join(process.cwd(), 'static', `episode${params.id}.json`);
 
   const episodeJSON = JSON.parse(fs.readFileSync(filePath, 'utf8'));
   // By returning { props: posts }, the Blog component
