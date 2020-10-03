@@ -1,7 +1,52 @@
 {
   "episode": {
+    "imageMapping": {
+      "building": {
+        "small": "https://denkinovel-dev-test.s3.amazonaws.com/nyc-building.jpg",
+        "large": "https://denkinovel-dev-test.s3.amazonaws.com/nyc-building.jpg"
+      },
+      "buildings": {
+        "small": "https://denkinovel-dev-test.s3.amazonaws.com/buildings.jpg",
+        "large": "https://denkinovel-dev-test.s3.amazonaws.com/buildings.jpg"
+      },
+      "street": {
+        "small": "https://denkinovel-dev-test.s3.amazonaws.com/street.jpg",
+        "large": "https://denkinovel-dev-test.s3.amazonaws.com/street.jpg"
+      },
+      "bt": {
+        "small": "https://denkinovel-dev-test.s3.amazonaws.com/bt.jpg",
+        "large": "https://denkinovel-dev-test.s3.amazonaws.com/bt.jpg"
+      },
+      "zombie": {
+        "small": "https://denkinovel-dev-test.s3.amazonaws.com/zombie-simple.jpg",
+        "large": "https://denkinovel-dev-test.s3.amazonaws.com/zombie-simple.jpg"
+      },
+      "laundry": {
+        "small": "https://denkinovel-dev-test.s3.amazonaws.com/laundry.jpg",
+        "large": "https://denkinovel-dev-test.s3.amazonaws.com/laundry.jpg"
+      },
+      "window": {
+        "small": "https://denkinovel-dev-test.s3.amazonaws.com/window.jpg",
+        "large": "https://denkinovel-dev-test.s3.amazonaws.com/window.jpg"
+      },
+      "laptop": {
+        "small": "https://denkinovel-dev-test.s3.amazonaws.com/laptop-small.jpg",
+        "large": "https://denkinovel-dev-test.s3.amazonaws.com/laptop-large.jpg"
+      },
+      "market": {
+        "small": "https://denkinovel-dev-test.s3.amazonaws.com/market-small.jpg",
+        "large": "https://denkinovel-dev-test.s3.amazonaws.com/market-large.jpg"
+      }
+    },
+    "audioMapping": { "lets-dance": "https://katryomusic.s3.amazonaws.com/lets_dance.mp3" },
+    "colorMapping": {
+      "black": "#000000",
+      "white": "#ffffff",
+      "pink": "#fecbc8",
+      "blue": "#dceff5",
+      "green": "#dcfec8"
+    },
     "seriesTitle": "Zombie Story",
-    "episodeTitle": "1話　ニューヨークのアパートメントにて",
     "creator": "katryo",
     "pages": [
       {
@@ -9,6 +54,8 @@
           {
             "paragraphs": [
               "　ラップトップが動画を再生する。",
+              "",
+              "　ニューヨークシティ、ダウンタウンの金融地区。二つの巨大な塔が並んだワールドトレードセンタービルやアール・デコ調の20エクスチェンジプレイスといった巨大な建物が立ち並ぶビジネスの中心地。普段は人通りの耐えない場所のはずだが、いっさい動くものは見えない。しばらく無人の街路を映したあと場面は転換する。",
               "",
               "　医療用ガウン、フェイスシールドとマスクをつけた女性が落ち着かない様子でカメラに向かって話している。ときおり怒号が聞こえてくる。",
               "「ひどい状況。病室が足りないから廊下で寝ている患者もいる」",
@@ -22,9 +69,9 @@
               "",
               "　スーツと｜帽子《キッパ》を身に着け、もみあげを伸ばしたユダヤ教｜正統派《オーソドックス》の男性。その後ろには金髪碧眼の少年と少女が見える。",
               "「葬式で集まっているところに半透明の暴徒が現れた。最初は警察かなにかだと思ったよ。ウィルスで集会が禁じられているのに私たちは集まっていたからね」",
-              "「私と妻は子供たちの手を引いて逃げだした。でも子供は足が遅い。だから追いつかれそうになった。そこをラザルスが助けてくれた。ラザルスは私の弟だ」",
-              "「ラザルスはそいつを蹴り飛ばした。本当に勇敢な弟だ。誇りに思う。それからもみあいになって、ラザルスが馬乗りになって何発か肘で顔を殴りつけた。そうしたら……そいつは消えた。いつのまにか。どうにも信じられないが」",
-              "「ラザルスは指を噛まれたらしい。たいした怪我じゃない。でもそれからラザルスはちょっと様子がおかしくなった。ショッキングな出来事だったからそれも当たり前かもしれない」",
+              "「私と妻は子供たちの手を引いて逃げだした。でも子供は足が遅い。だから追いつかれそうになった。そこを弟が助けてくれた」",
+              "「弟はそいつを蹴り飛ばした。本当に勇敢なやつだ。誇りに思う。それからもみあいになって、弟が馬乗りになって何発か肘で顔を殴りつけた。そうしたら……そいつは消えた。いつのまにか。どうにも信じられないが」",
+              "「弟は指を噛まれたらしい。たいした怪我じゃない。でもそれから弟は様子がおかしくなった。ショッキングな出来事だったからそれも当たり前かもしれない」",
               "",
               "　金髪の青年。さきほどの男性とおなじくもみあげを伸ばした髪型。室内で撮影した動画だ。うつろな視線は定まらず、寝ぼけているようにも見える。抑揚の欠けた発音で彼は話す。",
               "「そのひとはきえました」",
@@ -130,7 +177,8 @@
               "「もういいかな」",
               "　結構な量を袋に詰め込んだ。節制すれば一週間くらいはもつだろう。",
               "　いちおう、代金は支払っておこう。ウィルス対策のアクリル板越しに現金を置いていく。五十ドルもあれば十分だと思う。お釣りはとっておいてください。",
-              "　出入り口に足を向けて、異変が迫っていることに気づいた。半透明のゾンビがスーパーマーケットの外に立っていた。"
+              "　出入り口に足を向けて、異変が迫っていることに気づいた。ほぼ透明の人間がスーパーマーケットの外に立っていた。",
+              "「……いる」"
             ],
             "music": "",
             "sound": "",
@@ -146,13 +194,12 @@
         "sections": [
           {
             "paragraphs": [
-              "　東洋人。眼鏡をかけた若い女性。その姿を目にしたスカイラーは顔をそむけ、苦い表情になる。",
-              "　半透明のゾンビは緩慢な動作でドアを開けて店内に入ってきた。まだ知能がかなり残っている。",
+              "　東洋人。眼鏡をかけた若い女性。スカイラーは顔をそむけ、苦い表情になった。",
+              "　彼らのことをスカイラーは｜存在する者《イグジスター》と呼ぶ。イグジスターは緩慢な動作でドアを開けて店内に入ってきた。まだ知能がかなり残っている。",
               "　スカイラーはレジのかげに隠れる。あれはまだこちらを認識していない。息を潜めていればやりすごせる。",
-              "　顔を出せば見つかってしまう。相手を確認することもできない。ただくちゃくちゃというゾンビが出す音から、そいつがまだ立ち去っていないことだけがわかる。",
-              "　しゃがんだ姿勢で口に蓋をして、このまま見つからないことを祈り続ける。",
-              "　ここはあいつの縄張りだった。店には近づくべきじゃなかった。",
-              "　手にした買い物袋から、瓶がこぼれかけていたことにスカイラーは気づかなかった。やがて袋から出た瓶が転がっていき、棚にぶつかって音を立てた。"
+              "　顔を出せば見つかってしまう。相手を確認することもできない。ただくちゃくちゃというイグジスターが出す音から、そいつがまだ立ち去っていないことだけがわかる。",
+              "　しゃがんだ姿勢で口に蓋をして、このまま見つからないことを祈り続ける。ここはあいつの縄張りだった。店には近づくべきじゃなかった。",
+              "　咀嚼音が近づいてきた。"
             ],
             "music": "",
             "sound": "",
@@ -168,11 +215,10 @@
         "sections": [
           {
             "paragraphs": [
-              "　ゾンビがうなり声をあげた。恐ろしいはやさで走りより、首をまわしてこちらを見た。目があった。",
-              "　完全に見つかった。",
-              "　獣のような咆哮。前傾姿勢で飛び込んでくる。",
-              "　スカイラーはそいつにトマト缶を投げつけた。見事に頭に命中。だがすぐにゾンビは体勢を立て直す。",
-              "　そしてスカイラーは消えた。"
+              "　息を呑む。",
+              "　イグジスターはレジに向かってきている。あと十秒もすれば見つかってしまう。",
+              "　もしあれに噛みつかれたら、スカイラーは感染して彼らのように透明になる。それからおそらくNYCを徘徊し、別の誰かに噛みつくことだろう。",
+              "　もう逃げられない。出口はおさえられた。物音ひとつたてればあのイグジスターはそれを見逃さない。"
             ],
             "music": "",
             "sound": "",
@@ -188,14 +234,15 @@
         "sections": [
           {
             "paragraphs": [
-              "　ゾンビが動きを止めた。",
-              "　残ったのは缶と瓶のつまった買い物袋だけ。完全に見えなくなったスカイラーを探して、ゾンビはあたりを見わたす。",
-              "　呼吸音のようなものが小さくなり、やがて彼女はおとなしくなった。最後までゾンビはスーパーマーケットのドアが開き、獲物が逃げたことに気づかなかった。"
+              "　ガラス瓶がぶつかる音がした。商品が棚から崩れて床に落ちる。",
+              "　イグジスターが振り返った。物音がしたほうをしばらく見つめたあと、そちらに向けて歩き出した。",
+              "　スカイラーが投げたオリーブの瓶が商品棚に当たって音をたてたのだ。",
+              "　十分に距離がとれてから、スカイラーは静かに立ち上がった。"
             ],
             "music": "",
             "sound": "",
             "filter": "",
-            "bg": "black",
+            "bg": "market",
             "image": "",
             "id": 8
           }
@@ -206,10 +253,13 @@
         "sections": [
           {
             "paragraphs": [
-              "　スカイラーは大きく息をつく。スーパーマーケットから離れ、見えなくなったことを確認して、彼女は姿を現した。",
+              "　スーパーマーケットから離れ、見えなくなったことを確認してスカイラーは大きく息をつく。",
               "　逃げ切った。",
               "　買い物カートを持ってこなくて正解だった。もし持ってきていたら、袋と一緒に捨てるしかなかっただろう。",
-              "　――ああ、そうだ、せっかく手に入れた食料を置いてきてしまった。今さらスーパーマーケットには戻れない。"
+              "　――ああ、そうだ、せっかく手に入れた食料を置いてきてしまった。今さらスーパーマーケットには戻れない。",
+              "「｜やれやれ《Shoot》」",
+              "　危険を冒してまで食料調達に来たというのに、すべて置いてきてしまった。",
+              "　また別のデリやスーパーマーケットを狙うのも気が進まない。イグジスターは狭い空間を好み、縄張りに潜む性質がある。あのスーパーマーケットは十分に広く、以前に来たこともあり、警戒しやすかった。同程度の場所は思い浮かばない。"
             ],
             "music": "",
             "sound": "",
@@ -225,9 +275,16 @@
         "sections": [
           {
             "paragraphs": [
-              "　スカイラーは二分ほどの時間、姿を消すことができる。この能力のおかげでゾンビに噛み殺されることもなく今まで生き抜くことができた。",
-              "　消えることでかなりの危険は回避できる。ただし無敵ではない。一分が過ぎれば効果は切れるし、そのあと消えようと思っても七分程度のあいだは消えることができない。だから、可能な限り能力は使わないようにしている。｜充電《リチャージ》時間中にゾンビに襲われたら詰みだからだ。",
-              "　半透明のゾンビが現れるようになってから、例の症状を経て得た能力だ。"
+              "　目の前には四川料理のレストラン。ガラス越しに見たところ中にイグジスターはいない。食材が残っていたりしないか、と店舗に近寄ってみる。",
+              "　入り口に貼られている手書きのビラの文言が目にとまった。スーパーマーケットでも見た憶えのあるものだ。",
+              "『まだ避難されていない方へお伝えします。イントレピッドに来てください。イグジスターがあらわれた理由を教えます』",
+              "　おかしな内容だ。どう考えても怪しい。",
+              "「イントレピッドね」",
+              "　周囲を見渡すと、同じビラが目につくだろう場所そこらじゅうに貼ってあることに気づく。",
+              "　一帯が無人になってから、誰かがこのビラを貼りまくったのだ。効率のよい宣伝ではないが、インターネットもラジオもない今は情報を広めるのにはこれが最善なのかもしれない。",
+              "「行ってみるべきかな？」",
+              "　",
+              ""
             ],
             "music": "",
             "sound": "",
@@ -238,102 +295,13 @@
           }
         ],
         "id": 9
-      },
-      {
-        "sections": [
-          {
-            "paragraphs": [
-              "「｜やれやれ《Shoot》」",
-              "　危険を冒してまで食料調達に来たというのに、すべて置いてきてしまった。",
-              "　また別のデリやスーパーマーケットを狙うのも気が進まない。ゾンビは狭い空間を好み、縄張りに潜む性質がある。あのスーパーマーケットは十分に広く、以前に来たこともあり、ゾンビも中にはおらず、警戒しやすかった。同程度の場所は思い浮かばない。"
-            ],
-            "music": "",
-            "sound": "",
-            "filter": "",
-            "bg": "street",
-            "image": "",
-            "id": 11
-          }
-        ],
-        "id": 10
-      },
-      {
-        "sections": [
-          {
-            "paragraphs": [
-              "　目の前には辛さで有名な四川料理のレストラン。ガラス越しに見たところ中にゾンビはいない。食材が残っていたりしないか、と店舗に近寄ってみる。",
-              "　入り口に貼られている手書きのビラの文言が目にとまった。スーパーマーケットでも見た憶えのあるものだ。",
-              "『まだ避難されていない方へお伝えします。イントレピッドに来てください。あなたを助けます』",
-              "　おかしな内容だ。",
-              "「イントレピッドね」",
-              "　周囲を見渡すと、同じビラがレストランやバー、目につくだろう場所に貼ってあることに気づく。",
-              "　一帯が無人になってから、どこかの誰かがなんらかの目的でこのビラを貼りまくったのだ。効率のよい宣伝ではないだろうが、インターネットもラジオもない今は情報を広めるのにはこれが最善なのかもしれない。",
-              "　どう考えても怪しいが。",
-              "「行ってみるべきかな？」",
-              "　",
-              ""
-            ],
-            "music": "",
-            "sound": "",
-            "filter": "",
-            "bg": "street",
-            "image": "",
-            "id": 12
-          }
-        ],
-        "id": 11
       }
     ],
-    "audioMapping": { "lets-dance": "https://katryomusic.s3.amazonaws.com/lets_dance.mp3" },
-    "imageMapping": {
-      "building": {
-        "small": "https://denkinovel-dev-test.s3.amazonaws.com/nyc-building.jpg",
-        "large": "https://denkinovel-dev-test.s3.amazonaws.com/nyc-building.jpg"
-      },
-      "buildings": {
-        "small": "https://denkinovel-dev-test.s3.amazonaws.com/buildings.jpg",
-        "large": "https://denkinovel-dev-test.s3.amazonaws.com/buildings.jpg"
-      },
-      "street": {
-        "small": "https://denkinovel-dev-test.s3.amazonaws.com/street.jpg",
-        "large": "https://denkinovel-dev-test.s3.amazonaws.com/street.jpg"
-      },
-      "bt": {
-        "small": "https://denkinovel-dev-test.s3.amazonaws.com/bt.jpg",
-        "large": "https://denkinovel-dev-test.s3.amazonaws.com/bt.jpg"
-      },
-      "zombie": {
-        "small": "https://denkinovel-dev-test.s3.amazonaws.com/zombie-simple.jpg",
-        "large": "https://denkinovel-dev-test.s3.amazonaws.com/zombie-simple.jpg"
-      },
-      "laundry": {
-        "small": "https://denkinovel-dev-test.s3.amazonaws.com/laundry.jpg",
-        "large": "https://denkinovel-dev-test.s3.amazonaws.com/laundry.jpg"
-      },
-      "window": {
-        "small": "https://denkinovel-dev-test.s3.amazonaws.com/window.jpg",
-        "large": "https://denkinovel-dev-test.s3.amazonaws.com/window.jpg"
-      },
-      "laptop": {
-        "small": "https://denkinovel-dev-test.s3.amazonaws.com/laptop-small.jpg",
-        "large": "https://denkinovel-dev-test.s3.amazonaws.com/laptop-large.jpg"
-      },
-      "market": {
-        "small": "https://denkinovel-dev-test.s3.amazonaws.com/market-small.jpg",
-        "large": "https://denkinovel-dev-test.s3.amazonaws.com/market-large.jpg"
-      }
-    },
-    "colorMapping": {
-      "black": "#000000",
-      "white": "#ffffff",
-      "pink": "#fecbc8",
-      "blue": "#dceff5",
-      "green": "#dcfec8"
-    },
     "defaultBg": "black",
     "defaultMusic": "",
     "defaultFilter": "black",
-    "defaultTextColor": "white"
+    "defaultTextColor": "white",
+    "episodeTitle": "2話　スーパーマーケットで透明人間に遭遇"
   },
   "formatVersion": 1
 }

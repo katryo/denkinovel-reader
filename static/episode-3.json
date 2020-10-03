@@ -1,0 +1,330 @@
+{
+  "episode": {
+    "imageMapping": {
+      "building": {
+        "small": "https://denkinovel-dev-test.s3.amazonaws.com/nyc-building.jpg",
+        "large": "https://denkinovel-dev-test.s3.amazonaws.com/nyc-building.jpg"
+      },
+      "buildings": {
+        "small": "https://denkinovel-dev-test.s3.amazonaws.com/buildings.jpg",
+        "large": "https://denkinovel-dev-test.s3.amazonaws.com/buildings.jpg"
+      },
+      "street": {
+        "small": "https://denkinovel-dev-test.s3.amazonaws.com/street.jpg",
+        "large": "https://denkinovel-dev-test.s3.amazonaws.com/street.jpg"
+      },
+      "bt": {
+        "small": "https://denkinovel-dev-test.s3.amazonaws.com/bt.jpg",
+        "large": "https://denkinovel-dev-test.s3.amazonaws.com/bt.jpg"
+      },
+      "zombie": {
+        "small": "https://denkinovel-dev-test.s3.amazonaws.com/zombie-simple.jpg",
+        "large": "https://denkinovel-dev-test.s3.amazonaws.com/zombie-simple.jpg"
+      },
+      "laundry": {
+        "small": "https://denkinovel-dev-test.s3.amazonaws.com/laundry.jpg",
+        "large": "https://denkinovel-dev-test.s3.amazonaws.com/laundry.jpg"
+      },
+      "window": {
+        "small": "https://denkinovel-dev-test.s3.amazonaws.com/window.jpg",
+        "large": "https://denkinovel-dev-test.s3.amazonaws.com/window.jpg"
+      },
+      "laptop": {
+        "small": "https://denkinovel-dev-test.s3.amazonaws.com/laptop-small.jpg",
+        "large": "https://denkinovel-dev-test.s3.amazonaws.com/laptop-large.jpg"
+      },
+      "market": {
+        "small": "https://denkinovel-dev-test.s3.amazonaws.com/market-small.jpg",
+        "large": "https://denkinovel-dev-test.s3.amazonaws.com/market-large.jpg"
+      },
+      "intrepid": {
+        "small": "https://denkinovel-dev-test.s3.amazonaws.com/intrepid-long-small.jpg",
+        "large": "https://denkinovel-dev-test.s3.amazonaws.com/intrepid-long.jpg"
+      },
+      "intrepid2": {
+        "small": "https://denkinovel-dev-test.s3.amazonaws.com/intrepid-entrance-small.jpg",
+        "large": "https://denkinovel-dev-test.s3.amazonaws.com/intrepid-entrance.jpg"
+      },
+      "intrepid3": {
+        "small": "https://denkinovel-dev-test.s3.amazonaws.com/intrepid-inside-small.jpg",
+        "large": "https://denkinovel-dev-test.s3.amazonaws.com/intrepid-inside.jpg"
+      }
+    },
+    "audioMapping": { "lets-dance": "https://katryomusic.s3.amazonaws.com/lets_dance.mp3" },
+    "colorMapping": {
+      "black": "#000000",
+      "white": "#ffffff",
+      "pink": "#fecbc8",
+      "blue": "#dceff5",
+      "green": "#dcfec8"
+    },
+    "seriesTitle": "Zombie Story",
+    "creator": "katryo",
+    "pages": [
+      {
+        "sections": [
+          {
+            "paragraphs": [
+              "　空母イントレピッドはマンハッタンの西の端、ハドソン川岸に接舷された巨大な船だ。第二次世界大戦中に建造された軍艦だが、いまは博物館としてその船体が残されている。イントレピッドそのものだけでなく、空母と直接は関係のない航空機、スペースシャトル、潜水艦といったものまで陳列された施設になっている。要するに小学生が遠足で来るような場所だ。",
+              "　近づいてみると、甲板にジェット機とヘリコプターが見えた。あれのひとつでも動かせればマンハッタンから脱出できるのだが、もちろんスカイラーは飛行機の操縦などできない。整備もされていないし燃料もないだろう。",
+              "　何人かイグジスターを見かけたが気づかれることはなかった。"
+            ],
+            "music": "",
+            "sound": "",
+            "filter": "",
+            "bg": "intrepid",
+            "image": "",
+            "id": 0
+          }
+        ],
+        "id": 0
+      },
+      {
+        "sections": [
+          {
+            "paragraphs": [
+              "　スカイラーはチケット売り場からまっすぐ入場する。地下鉄の改札のようなゲートを飛び越え、エントランスを通過する。イグジスターが出てくるまえの世界だったら、ここでチケットを手渡すのだろう。",
+              "　人の気配は感じない。電気の供給がないので室内は暗い。リュックサックやTシャツなどが並ぶ売店がぼんやり見える。食べ物は置いていないと思う。",
+              "「さて」",
+              "　イントレピッドに来いとのことだが、イントレピッドのどこに行けばいいんだろう。甲板、格納庫、艦橋、乗員区画。二千人が乗り込めるという巨体だ。すみずみまで捜しきるのは大変すぎる。",
+              "「あれ」",
+              "　そう思っていたらガラスのドアに貼られた手書きのビラを発見。",
+              "『｜こちらにどうぞ《THIS WAY》』",
+              "「親切だね」",
+              "　おとなしくビラの指示に従うことにする。"
+            ],
+            "music": "",
+            "sound": "",
+            "filter": "",
+            "bg": "black",
+            "image": "",
+            "id": 1
+          }
+        ],
+        "id": 1
+      },
+      {
+        "sections": [
+          {
+            "paragraphs": [
+              "　空母はかなり広いし見通しがいい。普通の建物と違って、ゾンビの縄張りに入るリスクは小さいだろう。",
+              "　歩道橋のような桟橋の階段をのぼり、乗艦する。"
+            ],
+            "music": "",
+            "sound": "",
+            "filter": "",
+            "bg": "intrepid2",
+            "image": "",
+            "id": 2
+          }
+        ],
+        "id": 2
+      },
+      {
+        "sections": [
+          {
+            "paragraphs": [
+              "　艦内に照明がついていることに気づいた。発電機が動いているのだろうか？　空母ならそれくらいあっておかしくないが、避難令のあとで稼働させたのは誰だ。ビラを撒いた人が動かしている？",
+              "「……いやまて」",
+              "　スカイラーは立ち止まる。ビラに釣られてのこのことやってきたのが、とんでもない間違いだったのかもしれない。",
+              "「警戒したほうがいい」",
+              "　逃げ遅れた人をここに呼び寄せて、なにかをしようとしている。なにか。目的がわかるまではいつでも逃げられる準備をすべきだ。",
+              "「いきなり撃たれるとかはないと思うけどね」",
+              "　艦載機が展示された格納庫の奥へとスカイラーは歩いてゆく。",
+              "“Stop.”",
+              "　女性がアサルトライフルをスカイラーに向けていた。"
+            ],
+            "music": "",
+            "sound": "",
+            "filter": "",
+            "bg": "intrepid3",
+            "image": "",
+            "id": 3
+          }
+        ],
+        "id": 3
+      },
+      {
+        "sections": [
+          {
+            "paragraphs": [
+              "“Stop, stop, stop.”",
+              "　彫りの深い顔立ち。丸い目。褐色の肌。",
+              "「歩くな。歩くと殺す」",
+              "　そう告げて彼女はゆっくり近づいてくる。インド英語の訛りだ。",
+              "「｜まじかよ《Oh my god》」",
+              "　スカイラーは腕を横に広げて無抵抗のポーズをとった。",
+              "「銃を持っていたら出せ」",
+              "「ない」",
+              "「嘘をつくな」",
+              "　距離を一定に保ったまま彼女はスカイラーのまわりを一周する。",
+              "「本当にないんだってば」",
+              "「……オーケー。一人か？」",
+              "「まあね」",
+              "　ようやく彼女はライフルをおろした。"
+            ],
+            "music": "",
+            "sound": "",
+            "filter": "",
+            "bg": "intrepid3",
+            "image": "",
+            "id": 4
+          }
+        ],
+        "id": 4
+      },
+      {
+        "sections": [
+          {
+            "paragraphs": [
+              "「僕の名前はアーディヤ・グプタ。銃を向けてすまなかった」",
+              "　スカイラーは息をつく。",
+              "「いきなりそれはないだろ？」",
+              "「悪かった。けど君を信頼する理由がなかったんだ」",
+              "「疑うのは悪いことじゃないけど、やりすぎじゃない？　他人を信頼しないでいると、あんたも信頼されなくなるよ」",
+              "「――申し訳なかった。本当に」",
+              "　しばらくアーディヤの目を見つめたあと、しぶしぶスカイラーは手を差しだした。",
+              "「スカイラー・ワイズ」",
+              "　アーディヤはスカイラーの手を握り返す。"
+            ],
+            "music": "",
+            "sound": "",
+            "filter": "",
+            "bg": "intrepid3",
+            "image": "",
+            "id": 5
+          }
+        ],
+        "id": 5
+      },
+      {
+        "sections": [
+          {
+            "paragraphs": [
+              "「あの張り紙。イグジスターがあらわれた理由を教えるっていうから来たんだけど、あれはあなたが書いたの？」",
+              "「そうだ。来てくれてありがとう」",
+              "　ひと呼吸おいてからアーディヤは言った。",
+              "「僕は異世界から来たんだ」"
+            ],
+            "music": "",
+            "sound": "",
+            "filter": "",
+            "bg": "intrepid3",
+            "image": "",
+            "id": 6
+          }
+        ],
+        "id": 6
+      },
+      {
+        "sections": [
+          {
+            "paragraphs": [
+              "「そうなんだ」",
+              "「本当だぞ？」",
+              "「信じるよ」",
+              "　驚くことには慣れてしまった、といわんばかりのスカイラーの態度。",
+              "「……ならいいが。長い話になる。実のところ僕もこの世界の状況を完全に把握しているわけではないんだ。よかったら君も情報を共有してくれないか」",
+              "「よろこんで」",
+              "「座って話そう。こっちに椅子がある」"
+            ],
+            "music": "",
+            "sound": "",
+            "filter": "",
+            "bg": "intrepid3",
+            "image": "",
+            "id": 7
+          }
+        ],
+        "id": 7
+      },
+      {
+        "sections": [
+          {
+            "paragraphs": [
+              "　ニューヨークの人々にイグジスターの症候があらわれたのはひと月ほど前のことだ。咳や発熱といった風邪の症状を示したあと、精神が不安定になり、やがて正常な思考が困難になってゆく。一週間ほどをおいて身体が透明になり、他人につかみかかったり噛みつくようになる。",
+              "　透明になる現象は、光学的に可視光線を吸収・反射しなくなることで発生することが明らかになっている。イグジスターの肉体だけでなく、その周囲の物質にも同様の現象がおこっている。これにより、イグジスターはほとんど目に見えない。しかし正気を失う前のあるイグジスターの証言によると、イグジスターはイグジスターがうっすら見えるらしい。静止した状態だと見えないが、激しく動くイグジスターは、半透明のゼリーのような姿として認識できるそうだ。"
+            ],
+            "music": "",
+            "sound": "",
+            "filter": "",
+            "bg": "black",
+            "image": "",
+            "id": 8
+          }
+        ],
+        "id": 8
+      },
+      {
+        "sections": [
+          {
+            "paragraphs": [
+              "「君にもイグジスターは見えないんだな？」",
+              "「まあ」",
+              "「よくイントレピッドまで来られたな。見つからない方法でもあるのか？」",
+              "「ないよ。気をつけて静かに歩いてきただけ。幸運だった」"
+            ],
+            "music": "",
+            "sound": "",
+            "filter": "",
+            "bg": "intrepid3",
+            "image": "",
+            "id": 9
+          }
+        ],
+        "id": 9
+      },
+      {
+        "sections": [
+          {
+            "paragraphs": [
+              "　イグジスターが感染するものだと判明すると、世界は混乱に陥った。すでにニューヨークシティでは風邪の症状を示したあと姿を消した行方不明者が急増していた。概算で二千人以上が感染し、透明になって街を徘徊していると予想された。ニューヨークシティの外へも感染者が移動しているかもしれない。",
+              "　すぐさま大統領が非常事態宣言を発令した。これで国家緊急事態法のもと、州政府でなく連邦が対応をとることになった。",
+              "　同時に｜緊急事態管理庁《FEMA》が避難令を発した。本来ならハリケーンなど自然災害への対応を前提にしたものだが、なかば例外的にイグジスターも法の適用範囲とみなされた。避難令は、スタテンアイランドを除くニューヨークシティの全地域に適応された。当初は三十日間が避難期間として設定されたが、すぐに無期限延長となった。"
+            ],
+            "music": "",
+            "sound": "",
+            "filter": "",
+            "bg": "black",
+            "image": "",
+            "id": 10
+          }
+        ],
+        "id": 10
+      },
+      {
+        "sections": [
+          {
+            "paragraphs": [
+              "「君以外の人間はみな避難したのか？」",
+              "「そうとは言い切れない。避難令を無視した人はいる。病気とか、なにかの事情で動けない人とか。｜終末準備主義者《プレッパー》みたいに地下に隠れ潜んでいる人たちもいる。私たちも似たようなものか」",
+              "「君はどうしてすぐ避難しなかったんだ？」",
+              "「取材のため」",
+              "「なんだそれは？」",
+              "「私はジャーナリズムを学んでいる。そのトレーニングというか実践の場として、イグジスターの現れた地区の人にインタビューしていたんだ。正確な情報や現地の人の反応を世界中の人が知りたがっているから。ここから脱出できたら公開するつもり」",
+              "「そんなことのために？」",
+              "「ジャーナリズムには命を懸ける価値がある。あんたにはないの？　命を懸けるようなものは」",
+              "「ないとはいわない」",
+              "　基地局は放棄され、通信インフラは失われている。ニューヨークシティの状況を伝えるものはほとんど消えた。いまから現地を取材しようとしても、外から入ってくるのは自殺行為だろう。",
+              "「逃げ遅れたっていうのも本当だけど。まさかここまでひどい事態になるとは思っていなかったから」",
+              "　ニューヨークシティの中心、スカイラーたちがいるマンハッタンを出る経路は三つある。"
+            ],
+            "music": "",
+            "sound": "",
+            "filter": "",
+            "bg": "intrepid3",
+            "image": "",
+            "id": 11
+          }
+        ],
+        "id": 11
+      }
+    ],
+    "defaultBg": "black",
+    "defaultMusic": "",
+    "defaultFilter": "black",
+    "defaultTextColor": "white",
+    "episodeTitle": "3話　異世界から来たインド人に出会う"
+  },
+  "formatVersion": 1
+}

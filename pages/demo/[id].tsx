@@ -18,7 +18,7 @@ const Demo = (props) => {
 export default Demo;
 
 export async function getStaticPaths() {
-  const episodeNums = ['1', '2'];
+  const episodeNums = ['1', '2', '3'];
   const paths = episodeNums.map((num) => {
     return `/demo/${num}`;
   });
@@ -28,7 +28,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const filePath = path.join(process.cwd(), 'static', `episode${params.id}.json`);
+  const filePath = path.join(process.cwd(), 'static', `episode-${params.id}.json`);
 
   const episodeJSON = JSON.parse(fs.readFileSync(filePath, 'utf8'));
   // By returning { props: posts }, the Blog component
