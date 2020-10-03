@@ -1,6 +1,10 @@
 {
   "episode": {
     "imageMapping": {
+      "apartment": {
+        "small": "https://denkinovel-dev-test.s3.amazonaws.com/laptop-small.jpg",
+        "large": "https://denkinovel-dev-test.s3.amazonaws.com/laptop-large.jpg"
+      },
       "building": {
         "small": "https://denkinovel-dev-test.s3.amazonaws.com/nyc-building.jpg",
         "large": "https://denkinovel-dev-test.s3.amazonaws.com/nyc-building.jpg"
@@ -36,6 +40,18 @@
       "market": {
         "small": "https://denkinovel-dev-test.s3.amazonaws.com/market-small.jpg",
         "large": "https://denkinovel-dev-test.s3.amazonaws.com/market-large.jpg"
+      },
+      "intrepid": {
+        "small": "https://denkinovel-dev-test.s3.amazonaws.com/intrepid-long-small.jpg",
+        "large": "https://denkinovel-dev-test.s3.amazonaws.com/intrepid-long.jpg"
+      },
+      "intrepid2": {
+        "small": "https://denkinovel-dev-test.s3.amazonaws.com/intrepid-entrance-small.jpg",
+        "large": "https://denkinovel-dev-test.s3.amazonaws.com/intrepid-entrance.jpg"
+      },
+      "intrepid3": {
+        "small": "https://denkinovel-dev-test.s3.amazonaws.com/intrepid-inside-small.jpg",
+        "large": "https://denkinovel-dev-test.s3.amazonaws.com/intrepid-inside.jpg"
       }
     },
     "audioMapping": { "lets-dance": "https://katryomusic.s3.amazonaws.com/lets_dance.mp3" },
