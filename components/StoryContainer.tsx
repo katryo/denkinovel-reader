@@ -124,7 +124,7 @@ const SectionList = (props: {
 
   const sectionList = page.sections.map((section) => {
     return (
-      <div id={idToSectionId(section.id)} key={section.id} style={{ color: textColor }}>
+      <div id={idToSectionId(section.id)} key={section.id} style={{ color: textColor, marginTop: '3rem' }}>
         {section.image !== '' && (
           <img
             src={getVisualSrc(section.image, imageMapping, colorMapping)}
