@@ -2,7 +2,6 @@ const PLAIN = 'PLAIN';
 const RUBY = 'RUBY';
 
 const DEFAULT_IDX = -1;
-
 interface PlainElement {
   type: typeof PLAIN;
   plainText: string;

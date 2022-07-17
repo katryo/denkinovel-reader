@@ -138,7 +138,11 @@ const SectionList = (props: {
       </div>
     );
   });
-  return <>{sectionList}</>;
+  return (
+    // <div style={{ backgroundColor: 'rgba(10,10,10,0.7)', boxShadow: '0 0 20px 30px rgba(10,10,10,0.7)' }}>
+    <>{sectionList}</>
+    // </div>
+  );
 };
 
 const PageList = (props: {
@@ -279,7 +283,7 @@ const StoryContainer = (props: { episode: Episode }) => {
   );
 
   const handleScroll = useCallback(
-    async (e) => {
+    async (_ev: Event) => {
       const sectionId = getCurrentSectionId();
       const sectionIndex = sectionIdIndex[sectionId];
       const currentSection = sections[sectionIndex];
